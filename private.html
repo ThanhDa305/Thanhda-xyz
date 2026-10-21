@@ -63,9 +63,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* =========================================
-           CHUỖI DÒNG CHỮ INTRO (MỖI DÒNG 3 GIÂY)
-           ========================================= */
+        /* CHUỖI DÒNG CHỮ INTRO */
         #story-intro {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -98,9 +96,7 @@
             transform: scale(1);
         }
 
-        /* =========================================
-           MÀN HÌNH HỘP QUÀ CHỜ
-           ========================================= */
+        /* MÀN HÌNH HỘP QUÀ CHỜ */
         #intro {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -159,7 +155,7 @@
             margin: 0;
         }
 
-        /* HỘP QUÀ 2D TỐI ƯU MOBILE */
+        /* HỘP QUÀ 2D */
         .gift-wrapper {
             position: relative;
             z-index: 10;
@@ -215,7 +211,7 @@
             width: 100%; height: 20px; background: var(--ribbon-color);
         }
 
-        /* HIỆU ỨNG TIA SÁNG MỞ ĐẦU */
+        /* HIỆU ỨNG TIA SÁNG */
         #flash-overlay {
             position: fixed;
             top: 50%; left: 50%;
@@ -237,9 +233,7 @@
             transition: width 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        /* =========================================
-           VŨ TRỤ 3D & THẺ KỶ NIỆM
-           ========================================= */
+        /* VŨ TRỤ 3D */
         #stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -289,7 +283,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
-        /* HỘP QUÀ KHỔNG LỒ BAY TRONG KHÔNG GIAN */
         .giant-gift-item {
             flex-direction: column;
             pointer-events: auto;
@@ -327,9 +320,7 @@
             70% { transform: scale(1); }
         }
 
-        /* =========================================
-           POPUP CHI TIẾT (LIGHTBOX)
-           ========================================= */
+        /* POPUP CHI TIẾT */
         #modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.92);
@@ -431,8 +422,9 @@
 </head>
 <body onclick="tryPlayMusicOnce()">
 
+    <!-- THẺ NHẠC GẮN TRỰC TIẾP DIRECT LINK TỪ GOOGLE DRIVE CỦA ÔNG -->
     <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c6ff1bfd.mp3?filename=romantic-piano-114484.mp3" type="audio/mpeg">
+        <source src="https://docs.google.com/uc?export=download&id=1lqMhC0985KcCpzb1TokkB0PPcJBKRXK6" type="audio/mp4">
     </audio>
 
     <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
@@ -502,7 +494,7 @@
         }
 
         function toggleMusic(e) {
-            e.stopPropagation(); // Không ăn sự kiện click lan ra body
+            e.stopPropagation();
             if (isMusicPlaying) {
                 bgMusic.pause();
                 isMusicPlaying = false;
