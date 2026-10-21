@@ -425,11 +425,6 @@
 </head>
 <body onclick="tryPlayMusicOnce()">
 
-    <!-- LINK NHẠC ĐÚNG FILE BÀI HÁT TRÊN GOOGLE DRIVE CỦA ÔNG -->
-    <audio id="bg-music" loop>
-        <source src="https://docs.google.com/uc?export=download&id=1lqMhC0985KcCpzb1TokkB0PPcJBKRXK6" type="audio/mp4">
-    </audio>
-
     <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
     <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)">
         <span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
@@ -480,36 +475,46 @@
     <div class="music-note-hint" id="hint-note">🎵 Vuốt nhẹ để lướt ảnh không gian 3D</div>
 
     <script>
-        const bgMusic = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-toggle-btn');
         const musicText = document.getElementById('music-text');
+        
+        let bgMusic = null;
         let isMusicPlaying = false;
 
+        function initAudio() {
+            if (!bgMusic) {
+                // Tạo Audio object trực tiếp bằng JavaScript trỏ tới file .m4a trên Drive của ông
+                bgMusic = new Audio("https://docs.google.com/uc?export=download&id=1lqMhC0985KcCpzb1TokkB0PPcJBKRXK6");
+                bgMusic.loop = true;
+                bgMusic.volume = 0.7;
+            }
+        }
+
         function tryPlayMusicOnce() {
+            initAudio();
             if (!isMusicPlaying) {
-                bgMusic.volume = 0.6;
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
                     musicText.textContent = "Tắt nhạc";
-                }).catch(e => console.log("Chờ người dùng tương tác"));
+                }).catch(e => console.log("Chờ tương tác từ người dùng"));
             }
         }
 
         function toggleMusic(e) {
             e.stopPropagation();
+            initAudio();
             if (isMusicPlaying) {
                 bgMusic.pause();
                 isMusicPlaying = false;
                 musicBtn.classList.add('paused');
                 musicText.textContent = "Bật nhạc";
             } else {
-                bgMusic.volume = 0.6;
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
                     musicText.textContent = "Tắt nhạc";
-                });
+                }).catch(e => console.log("Lỗi phát nhạc: ", e));
             }
         }
 
@@ -688,15 +693,15 @@
             const specialObj = {
                 el: specialEl,
                 isSpecial: true,
-                x: 0, 
-                y: 0, 
-                z: -3000, 
-                vx: 0,
-                vy: 0,
-                vz: 1.8, 
-                rotZ: 0,
-                bobAngle: 0,
-                bobSpeed: 0.02
+                    x: 0, 
+                    y: 0, 
+                    z: -3000, 
+                    vx: 0,
+                    vy: 0,
+                    vz: 1.8, 
+                    rotZ: 0,
+                    bobAngle: 0,
+                    bobSpeed: 0.02
             };
 
             specialEl.addEventListener('click', openSpecialGift);
