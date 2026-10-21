@@ -81,6 +81,12 @@
             font-size: 1.1em;
             animation: heartbeat 1.2s infinite;
             margin: 0 3px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .heart-icon:hover {
+            transform: scale(1.4);
         }
 
         @keyframes heartbeat {
@@ -602,7 +608,7 @@
             <div class="love-text">
                 Trang web phục vụ mục đích ăn uống & hẹn hò của cặp đôi<br>
                 <span class="highlight-name">Thanh Đa</span> 
-                <span class="heart-icon">❤️</span> 
+                <a href="private.html" style="text-decoration: none;" title="Chạm vào đây xem điều bất ngờ..."><span class="heart-icon">❤️</span></a> 
                 <span class="highlight-name">Nhựt Lam</span>
             </div>
         </div>
@@ -745,7 +751,7 @@
                 { name: "Bò Nướng Ngói Cù Lần", desc: "Tự tay nướng bò trên vỉ ngói xèo xèo thơm phức.", address: "Hẻm 1 Lý Tự Trọng, An Phú, Ninh Kiều, Cần Thơ", checked: true },
                 { name: "Lẩu Trâu Mẻ Chua", desc: "Thịt trâu nhúng mẻ chua thanh, ăn là ghiền.", address: "Khu vực đường Nguyễn Văn Cừ, Ninh Kiều, Cần Thơ", checked: true },
                 { name: "Bún Đậu Mắm Tôm Ba Phải", desc: "Đổi gió chuẩn vị Bắc, mắm tôm đậm đà topping đầy đủ.", address: "58A Mậu Thân, An Hòa, Ninh Kiều, Cần Thơ", checked: true },
-                { name: "Dimsum A Chảy", desc: "Ăn sương sương nhẹ nhàng, há cảo tôm thịt chất lượng.", address: "Đường Nguyễn Trãi, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Dimsum A Chảy", desc: "Ăn sương sương nhẹ nhàng, há cảo tôm thịt chất lượng.", address: "Đường Nguyễn Trải, Ninh Kiều, Cần Thơ", checked: true },
                 { name: "Đồ Nướng BBQ Alô Dzô 100", desc: "Không gian rộng rãi, nướng ngói và lẩu đa dạng.", address: "55B1B Hồ Búng Xáng, An Khánh, Ninh Kiều, Cần Thơ", checked: true },
                 { name: "Hủ Tiếu Mực Cô Hạnh", desc: "Nước lèo ngọt thanh từ xương, mực tươi giòn sần sật.", address: "Đường Huỳnh Cương (Bờ Hồ Búng Xáng), Cần Thơ", checked: true },
                 { name: "Cá Lóc Nướng Trui Bờ Hồ", desc: "Cá lóc cuốn rau rừng chấm mắm me nhậu nhẹt cực đã.", address: "Khu vực Bờ Hồ Búng Xáng, Ninh Kiều, Cần Thơ", checked: true },
@@ -876,17 +882,10 @@
         function loadUserData() {
             const savedData = localStorage.getItem('cThoData_' + currentUser);
             if (savedData) {
-                // Merge data hiện tại (nếu user cũ bị thiếu data mới update) 
-                // hoặc lấy data cũ. Ở đây đơn giản là ưu tiên data cũ nếu đã lưu.
                 dataSets = JSON.parse(savedData);
-                
-                // Cập nhật lại số lượng món ăn/nước uống nếu base default có thay đổi mà user chưa có (tránh mất món khi tui code update)
-                // (Chỉ áp dụng với user cũ muốn reset hoặc tự động add thêm nếu cần, 
-                // nhưng tạm thời cứ giữ nguyên data cá nhân của user cho an toàn)
             } else {
-                // Clone default data cho user mới
                 dataSets = JSON.parse(JSON.stringify(defaultDataSets));
-                saveUserData(); // Lưu ngay
+                saveUserData();
             }
         }
 
