@@ -22,20 +22,63 @@
             color: white;
             perspective: 1200px;
             touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         /* =========================================
-           HIỆU ỨNG ĐIỆN ẢNH & MÀN HÌNH CHỜ (INTRO)
+           CHUỖI DÒNG CHỮ INTRO (MỖI DÒNG 3 GIÂY)
+           ========================================= */
+        #story-intro {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000;
+            z-index: 10002;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .story-text-line {
+            position: absolute;
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 154, 158, 0.8);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            max-width: 90vw;
+            line-height: 1.4;
+        }
+
+        .story-text-line.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =========================================
+           HIỆU ỨNG ĐIỆN ẢNH & HỘP QUÀ CHỜ
            ========================================= */
         #intro {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh; /* Phủ kín toàn bộ khung nhìn */
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000;
             z-index: 9999;
-            transition: background 1.5s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease-in-out;
         }
 
-        /* DÙNG ABSOLUTE ĐỂ ÉP BUỘC CANH GIỮA TUYỆT ĐỐI (BULLETPROOF) */
+        #intro.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .intro-container {
             position: absolute;
             top: 50%;
@@ -46,11 +89,13 @@
             align-items: center;
             justify-content: center;
             width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
         .cinema-bar {
             position: fixed;
-            left: 0; width: 100%; height: 12%;
+            left: 0; width: 100%; height: 10vh;
             background: #000;
             z-index: 10000;
             transition: height 2s cubic-bezier(0.65, 0, 0.35, 1);
@@ -62,45 +107,37 @@
         .intro-text {
             text-align: center;
             z-index: 2;
-            margin-bottom: 40px; /* Tạo khoảng cách giữa chữ và hộp quà */
+            margin-bottom: 30px;
         }
         .intro-text h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4em;
+            font-size: clamp(2.5em, 8vw, 4em);
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             margin: 0 0 5px 0;
-            opacity: 0.8;
-            animation: breathe 3s infinite alternate;
+            opacity: 0.9;
         }
         .intro-text p {
-            font-size: 1.3em;
+            font-size: clamp(1em, 4vw, 1.3em);
             color: #ccc;
             margin: 0;
-            letter-spacing: 2px;
-            font-family: 'Baloo 2', cursive;
+            letter-spacing: 1px;
         }
 
-        @keyframes breathe {
-            from { text-shadow: 0 0 10px rgba(255,255,255,0.3); opacity: 0.7; }
-            to { text-shadow: 0 0 30px #ff9a9e; opacity: 1; transform: scale(1.02); }
-        }
-
-        /* HỘP QUÀ CSS 2D Ở INTRO */
+        /* HỘP QUÀ 2D TỐI ƯU MOBILE */
         .gift-wrapper {
             position: relative;
             z-index: 10;
             cursor: pointer;
             transition: transform 0.3s;
         }
-        .gift-wrapper:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 20px rgba(230, 57, 70, 0.6));
+        .gift-wrapper:active {
+            transform: scale(0.95);
         }
 
         .gift-lid {
-            width: 160px;
-            height: 35px;
+            width: clamp(130px, 40vw, 160px);
+            height: clamp(30px, 9vw, 35px);
             background: var(--box-color);
             border-radius: 6px;
             position: relative;
@@ -112,20 +149,20 @@
         .gift-lid::before {
             content: ''; position: absolute; top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 30px; height: 100%; background: var(--ribbon-color);
+            width: 25px; height: 100%; background: var(--ribbon-color);
         }
 
         .bow {
-            position: absolute; width: 40px; height: 40px;
-            border: 8px solid var(--ribbon-color); border-radius: 50%;
-            top: -25px; z-index: -1;
+            position: absolute; width: 35px; height: 35px;
+            border: 7px solid var(--ribbon-color); border-radius: 50%;
+            top: -22px; z-index: -1;
         }
-        .bow-left { left: 30px; transform: rotate(-30deg); }
-        .bow-right { right: 30px; transform: rotate(30deg); }
+        .bow-left { left: 25px; transform: rotate(-30deg); }
+        .bow-right { right: 25px; transform: rotate(30deg); }
 
         .gift-base {
-            width: 145px;
-            height: 120px;
+            width: clamp(120px, 36vw, 145px);
+            height: clamp(100px, 30vw, 120px);
             background: var(--box-color);
             margin: 0 auto;
             border-radius: 0 0 8px 8px;
@@ -136,32 +173,38 @@
         .gift-base::before {
             content: ''; position: absolute; top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 30px; height: 100%; background: var(--ribbon-color);
+            width: 25px; height: 100%; background: var(--ribbon-color);
         }
         .gift-base::after {
             content: ''; position: absolute; top: 40%; left: 0;
-            width: 100%; height: 25px; background: var(--ribbon-color);
+            width: 100%; height: 22px; background: var(--ribbon-color);
         }
 
+        /* HIỆU ỨNG TIA SÁNG DẠNG THẲNG PHÁT RA TỪ HỘP QUÀ RỒI MỞ RỘNG CHẦM CHẬM */
         #flash-overlay {
             position: fixed;
             top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #fff 0%, var(--glow-color) 40%, transparent 100%);
-            transform: translate(-50%, -50%) scale(0);
+            width: 8px; height: 0vh; /* Bắt đầu là một tia sáng thẳng đứng mỏng */
+            background: linear-gradient(to bottom, #fff, #ffeb3b, #ff9a9e);
+            box-shadow: 0 0 40px 15px #fff;
+            transform: translate(-50%, -50%);
             opacity: 0;
             z-index: 100;
             pointer-events: none;
-            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.5s;
+            transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s, opacity 0.5s;
         }
-        #flash-overlay.explode {
+        #flash-overlay.expand-beam {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(300);
+            height: 100vh;
+            width: 15vw; /* Dãn rộng tia sáng thành dải sáng khổng lồ */
+        }
+        #flash-overlay.cover-screen {
+            width: 100vw;
+            transition: width 1s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         /* =========================================
-           VŨ TRỤ 3D & CÁC VẬT THỂ
+           VŨ TRỤ 3D & VẬT THỂ
            ========================================= */
         #stars-container {
             position: fixed;
@@ -184,76 +227,63 @@
             position: absolute; transform-style: preserve-3d;
             cursor: pointer; display: flex;
             justify-content: center; align-items: center;
-            transition: transform 0.4s ease-out; 
-        }
-
-        .item:hover {
-            transform: scale(1.1) !important; 
+            transition: transform 0.3s ease-out; 
         }
 
         .item-img {
-            width: 220px; height: 280px;
+            width: clamp(140px, 35vw, 220px); 
+            height: clamp(180px, 45vw, 280px);
             object-fit: cover;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 25px rgba(255, 154, 158, 0.2), 0 20px 40px rgba(0,0,0,0.8);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.3), 0 10px 30px rgba(0,0,0,0.8);
             pointer-events: auto;
-            transition: box-shadow 0.3s, border 0.3s;
-        }
-        .item-img:hover {
-            box-shadow: 0 0 35px rgba(255, 154, 158, 0.8), 0 20px 40px rgba(0,0,0,0.8);
-            border: 2px solid rgba(255, 255, 255, 0.8);
         }
 
         .item-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 38px;
+            font-size: clamp(24px, 6vw, 38px);
             color: #fff;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
             white-space: nowrap; pointer-events: auto;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px 35px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.02);
-            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
-        }
-        .item-text:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1), 0 0 20px rgba(255,154,158,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
-        /* HỘP QUÀ SIÊU TO BAY TRONG KHÔNG GIAN */
+        /* HỘP QUÀ KHỔNG LỒ BAY TRONG KHÔNG GIAN */
         .giant-gift-item {
             flex-direction: column;
             pointer-events: auto;
         }
         .giant-gift-icon {
-            font-size: 160px;
-            filter: drop-shadow(0 0 40px #ff0000) drop-shadow(0 0 80px #ffaa00);
+            font-size: clamp(100px, 25vw, 150px);
+            filter: drop-shadow(0 0 30px #ff0000) drop-shadow(0 0 60px #ffaa00);
             animation: heartbeat 1.5s infinite;
         }
         .giant-gift-label {
             font-family: 'Baloo 2', cursive;
-            font-size: 30px;
+            font-size: clamp(18px, 5vw, 28px);
             color: #ffeb3b;
-            text-shadow: 0 0 20px #ff9800;
-            margin-top: 15px;
+            text-shadow: 0 0 15px #ff9800;
+            margin-top: 10px;
             font-weight: bold;
-            background: rgba(0,0,0,0.6);
-            padding: 5px 25px;
-            border-radius: 30px;
-            border: 3px solid #ffeb3b;
-            box-shadow: 0 0 20px #ffeb3b;
+            background: rgba(0,0,0,0.7);
+            padding: 6px 20px;
+            border-radius: 25px;
+            border: 2px solid #ffeb3b;
+            box-shadow: 0 0 15px #ffeb3b;
+            white-space: nowrap;
             animation: floatLabel 2s infinite alternate;
         }
 
         @keyframes floatLabel {
             from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
+            to { transform: translateY(-8px); }
         }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -264,80 +294,99 @@
         }
 
         /* =========================================
-           POPUP CHI TIẾT (CANH GIỮA HOÀN TOÀN)
+           POPUP CHI TIẾT (LIGHTBOX)
            ========================================= */
         #modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             display: none; 
             justify-content: center; 
             align-items: center; 
-            z-index: 10000; opacity: 0; transition: opacity 0.4s;
+            z-index: 10000; opacity: 0; transition: opacity 0.3s;
             overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
         }
         
         .modal-content {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            width: auto; max-width: 90vw;
-            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%; max-width: 450px;
+            transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            margin: auto;
         }
         
         .modal-content img {
-            width: auto;
-            max-width: 90vw; 
+            width: 100%;
+            max-width: 85vw; 
             max-height: 45vh; 
-            border-radius: 15px;
-            box-shadow: 0 0 50px rgba(255, 154, 158, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
             border: 2px solid rgba(255,255,255,0.2);
             object-fit: contain;
-            margin-bottom: 25px; 
-            display: block;
+            margin-bottom: 15px; 
         }
         
         .modal-content .modal-text {
-            font-family: 'Dancing Script', cursive; font-size: 3.5em;
-            color: #fff; text-shadow: 0 0 30px rgba(255, 105, 180, 1);
+            font-family: 'Dancing Script', cursive; 
+            font-size: clamp(2em, 7vw, 3em);
+            color: #fff; text-shadow: 0 0 20px rgba(255, 105, 180, 1);
             text-align: center; margin: 0; padding: 0;
         }
 
-        .special-gift-text {
+        /* PHẦN HIỆN LẦN LƯỢT 4 CÂU KHI MỞ QUÀ */
+        .special-message-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+        }
+
+        .special-msg-line {
             font-family: 'Baloo 2', cursive !important;
-            font-size: 1.6em !important; 
+            font-size: clamp(1.1em, 4.5vw, 1.5em) !important; 
             color: #ffeb3b !important;
-            text-shadow: 0 0 20px rgba(255,0,0,0.8) !important;
+            text-shadow: 0 0 15px rgba(255,0,0,0.8) !important;
             line-height: 1.4;
-            max-width: 90vw;
-            margin-top: 0;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            position: absolute;
+            width: 85vw;
+            max-width: 450px;
+        }
+
+        .special-msg-line.show {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
         }
 
         .close-btn {
             position: absolute;
-            top: 25px; right: 25px;
-            padding: 10px 25px;
-            font-size: 1.1em; font-family: 'Baloo 2', cursive;
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); color: white;
-            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            top: 20px; right: 20px;
+            padding: 8px 20px;
+            font-size: 1em; font-family: 'Baloo 2', cursive;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white;
+            border-radius: 50px; cursor: pointer;
             backdrop-filter: blur(5px);
             z-index: 10001;
         }
-        .close-btn:hover {
-            background: white; color: var(--bg-color);
-            box-shadow: 0 0 20px white;
-        }
         
         .music-note {
-            position: fixed; bottom: 30px; right: 30px;
-            color: rgba(255,255,255,0.3); font-size: 0.9em; z-index: 100;
-            letter-spacing: 1px;
+            position: fixed; bottom: 20px; right: 20px;
+            color: rgba(255,255,255,0.4); font-size: 0.85em; z-index: 100;
+            letter-spacing: 0.5px;
             opacity: 0; transition: opacity 2s;
+            text-align: right;
+            pointer-events: none;
         }
 
         .confetti {
             position: absolute;
-            font-size: 30px;
+            font-size: 26px;
             pointer-events: none;
             z-index: 9999;
             animation: fall 3s ease-in forwards;
@@ -353,10 +402,17 @@
         <source src="https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c6ff1bfd.mp3?filename=romantic-piano-114484.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="cinema-bar top" id="bar-top"></div>
-    <div class="cinema-bar bottom" id="bar-bottom"></div>
+    <!-- CHUỖI DÒNG CHỮ INTRO (3S MỖI DÒNG) -->
+    <div id="story-intro">
+        <div class="story-text-line" id="line-0">Hôm nay là 31 tháng 10</div>
+        <div class="story-text-line" id="line-1">Là ngày lễ tốt nghiệp của ảnh</div>
+        <div class="story-text-line" id="line-2">Và cũng là ngày chỉ được sinh ra</div>
+        <div class="story-text-line" id="line-3">Thời gian này là dành cho chỉ</div>
+        <div class="story-text-line" id="line-4">Ảnh có một món quà nho nhỏ gửi đến chỉ nhân ngày quan trọng này</div>
+        <div class="story-text-line" id="line-5">Cùng khám phá với ảnh nhé!</div>
+    </div>
 
-    <!-- MÀN HÌNH CHỜ: DÙNG CONTAINER CANH GIỮA TUYỆT ĐỐI -->
+    <!-- MÀN HÌNH HỘP QUÀ CHỜ -->
     <div id="intro">
         <div class="intro-container">
             <div class="intro-text">
@@ -375,27 +431,63 @@
         <div id="flash-overlay"></div>
     </div>
 
+    <div class="cinema-bar top" id="bar-top"></div>
+    <div class="cinema-bar bottom" id="bar-bottom"></div>
+
     <!-- VŨ TRỤ 3D -->
     <div id="stars-container"></div>
     <div id="scene"></div>
 
-    <!-- POPUP PHÓNG TO KHI CLICK -->
+    <!-- POPUP CHI TIẾT -->
     <div id="modal">
-        <button class="close-btn" onclick="closeModal()">Đóng Lại</button>
+        <button class="close-btn" onclick="closeModal()">Đóng</button>
         <div class="modal-content" id="modalData"></div>
     </div>
     
-    <div class="music-note" id="hint-note">🎵 Trượt để xoay không gian 3D</div>
+    <div class="music-note" id="hint-note">🎵 Vuốt màn hình để xoay không gian 3D</div>
 
     <script>
-        // ====================================================================
-        // PHẦN 1: CẤU HÌNH DỮ LIỆU
-        // ====================================================================
-        
-        // 🌟🌟🌟 MÓN QUÀ ĐẶC BIỆT 🌟🌟🌟
+        // --- CHẠY CHUỖI 6 CÂU INTRO (MỖI DÒNG 3 GIÂY) ---
+        const lines = document.querySelectorAll('.story-text-line');
+        let currentLine = 0;
+
+        function playStoryIntro() {
+            // Phát nhạc nền từ đầu (có thể cần user interaction tùy trình duyệt)
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.volume = 0.5;
+            bgMusic.play().catch(e => console.log("Trình duyệt chặn autoplay"));
+
+            if (currentLine < lines.length) {
+                if(currentLine > 0) {
+                    lines[currentLine - 1].classList.remove('active');
+                }
+                lines[currentLine].classList.add('active');
+                currentLine++;
+                setTimeout(playStoryIntro, 3000); // 3 giây mỗi dòng
+            } else {
+                // Hết chuỗi chữ, ẩn màn hình intro chữ và hiện hộp quà
+                setTimeout(() => {
+                    document.getElementById('story-intro').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('story-intro').style.display = 'none';
+                        document.getElementById('intro').classList.add('show');
+                    }, 1000);
+                }, 1000);
+            }
+        }
+
+        window.onload = () => {
+            setTimeout(playStoryIntro, 500);
+        };
+
         const specialGiftConfig = {
             imgSrc: "https://placehold.co/600x600/e63946/ffffff?text=Hinh+Mon+Qua", 
-            message: "Tadaaa! Quà online đây! 🎁<br>Còn bây giờ... quay sang nhìn anh để khui quà TRỰC TIẾP nha công chúa ơi! 🥰"
+            messages: [
+                "Chào chỉ",
+                "Ảnh đã ấp ủ ý tưởng này từ khá lâu rồi",
+                "Nay ảnh mới có cơ hội để thực hiện",
+                "Hy vọng điều này có thể làm cho chỉ cảm thấy bất ngờ và thú vị 💖"
+            ]
         };
 
         const myMemories = [
@@ -414,27 +506,27 @@
             { type: 'text', content: 'Thương em nhất trên đời! 💕' }
         ];
 
-        // ====================================================================
-        // PHẦN 2: SEQUENCE HIỆU ỨNG ĐIỆN ẢNH (CINEMATIC BOX)
-        // ====================================================================
         let isOpening = false;
 
         function openCinematicGift() {
             if(isOpening) return;
             isOpening = true;
-            
-            const bgMusic = document.getElementById('bg-music');
-            bgMusic.volume = 0.5;
-            bgMusic.play().catch(e => console.log("Trình duyệt chặn autoplay"));
 
-            document.getElementById('gift-lid').style.transform = 'translateY(-80px) rotate(15deg) scale(1.1)';
+            // Nắp hộp quà bật ra
+            document.getElementById('gift-lid').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
             document.querySelector('.intro-text').style.opacity = '0';
-            document.querySelector('.intro-text').style.transition = 'opacity 0.5s';
+            document.querySelector('.intro-text').style.transition = 'opacity 0.4s';
 
+            // Bước 1: Tia sáng dạng thẳng vút lên từ hộp quà
+            const flash = document.getElementById('flash-overlay');
+            flash.classList.add('expand-beam');
+
+            // Bước 2: Sau 0.8s mở rộng chầm chậm ra toàn màn hình
             setTimeout(() => {
-                document.getElementById('flash-overlay').classList.add('explode');
-            }, 400);
+                flash.classList.add('cover-screen');
+            }, 800);
 
+            // Bước 3: Chuyển cảnh sang không gian 3D mượt mà
             setTimeout(() => {
                 document.getElementById('intro').style.opacity = '0';
                 document.getElementById('bar-top').style.height = '0';
@@ -449,13 +541,10 @@
 
                 setTimeout(() => {
                     document.getElementById('intro').style.display = 'none';
-                }, 2000);
-            }, 1600);
+                }, 1500);
+            }, 1800);
         }
 
-        // ====================================================================
-        // PHẦN 3: ENGINE 3D & HỘP QUÀ BAY
-        // ====================================================================
         const scene = document.getElementById('scene');
         let elements = [];
         let isPaused = false;
@@ -467,22 +556,36 @@
             if(isPaused) return;
             const x = (e.clientX / window.innerWidth) - 0.5;
             const y = (e.clientY / window.innerHeight) - 0.5;
-            targetRotY = x * 40; 
-            targetRotX = -y * 40; 
+            targetRotY = x * 35; 
+            targetRotX = -y * 35; 
         });
 
+        let touchStartX = 0, touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            if(e.touches.length > 0) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, {passive: true});
+
         document.addEventListener('touchmove', (e) => {
-            if(isPaused) return;
-            const touch = e.touches[0];
-            const x = (touch.clientX / window.innerWidth) - 0.5;
-            const y = (touch.clientY / window.innerHeight) - 0.5;
-            targetRotY = x * 60;
-            targetRotX = -y * 60;
-        });
+            if(isPaused || e.touches.length === 0) return;
+            const touchX = e.touches[0].clientX;
+            const touchY = e.touches[0].clientY;
+            
+            const deltaX = (touchX - touchStartX) / window.innerWidth;
+            const deltaY = (touchY - touchStartY) / window.innerHeight;
+            
+            targetRotY += deltaX * 40;
+            targetRotX -= deltaY * 40;
+            
+            touchStartX = touchX;
+            touchStartY = touchY;
+        }, {passive: true});
 
         function init3DSpace() {
             const fullItems = [...myMemories, ...myMemories, ...myMemories]; 
-            fullItems.forEach((item, i) => {
+            fullItems.forEach((item) => {
                 const el = document.createElement('div');
                 el.className = 'item';
                 
@@ -495,29 +598,25 @@
                 const obj = {
                     el: el,
                     data: item,
-                    x: (Math.random() - 0.5) * 4000, 
-                    y: (Math.random() - 0.5) * 2500, 
-                    z: Math.random() * -6000 - 1500, 
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    vz: Math.random() * 1.5 + 0.8, 
-                    rotZ: (Math.random() - 0.5) * 20,
+                    x: (Math.random() - 0.5) * 3500, 
+                    y: (Math.random() - 0.5) * 2200, 
+                    z: Math.random() * -5000 - 1000, 
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    vz: Math.random() * 1.2 + 0.6, 
+                    rotZ: (Math.random() - 0.5) * 15,
                     bobAngle: Math.random() * Math.PI * 2,
                     bobSpeed: Math.random() * 0.01 + 0.005
                 };
 
                 el.addEventListener('click', () => openModal(obj));
-                el.addEventListener('mouseenter', () => el.style.zIndex = "100");
-                el.addEventListener('mouseleave', () => el.style.zIndex = "1");
-
                 scene.appendChild(el);
                 elements.push(obj);
             });
 
-            // Delay 10s mới hiện hộp quà
             setTimeout(() => {
                 createGiantGift();
-            }, 10000); 
+            }, 8000); 
 
             animate();
         }
@@ -535,10 +634,10 @@
                 isSpecial: true,
                 x: 0, 
                 y: 0, 
-                z: -4000, 
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                vz: 2.5, 
+                z: -3500, 
+                vx: 0,
+                vy: 0,
+                vz: 2.0, 
                 rotZ: 0,
                 bobAngle: 0,
                 bobSpeed: 0.02
@@ -551,9 +650,9 @@
 
         function animate() {
             if (!isPaused) {
-                currentRotX += (targetRotX - currentRotX) * 0.03;
-                currentRotY += (targetRotY - currentRotY) * 0.03;
-                scene.style.transform = `translateZ(800px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+                currentRotX += (targetRotX - currentRotX) * 0.04;
+                currentRotY += (targetRotY - currentRotY) * 0.04;
+                scene.style.transform = `translateZ(600px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
 
                 elements.forEach(obj => {
                     obj.x += obj.vx;
@@ -561,14 +660,14 @@
                     obj.z += obj.vz; 
                     
                     obj.bobAngle += obj.bobSpeed;
-                    const bobY = Math.sin(obj.bobAngle) * 15;
+                    const bobY = Math.sin(obj.bobAngle) * 12;
 
-                    let maxZ = obj.isSpecial ? 1200 : 800;
+                    let maxZ = obj.isSpecial ? 1000 : 700;
                     
                     if (obj.z > maxZ) {
-                        obj.z = -6000;
-                        obj.x = (Math.random() - 0.5) * 4000;
-                        obj.y = (Math.random() - 0.5) * 2500;
+                        obj.z = -5000;
+                        obj.x = (Math.random() - 0.5) * 3500;
+                        obj.y = (Math.random() - 0.5) * 2200;
                     }
 
                     obj.el.style.transform = `translate3d(${obj.x}px, ${obj.y + bobY}px, ${obj.z}px) rotateZ(${obj.rotZ}deg)`;
@@ -579,27 +678,21 @@
 
         function createStars() {
             const container = document.getElementById('stars-container');
-            for(let i=0; i<200; i++) {
+            for(let i=0; i<150; i++) {
                 let star = document.createElement('div');
                 star.style.position = 'absolute';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                let size = Math.random() * 2.5;
+                let size = Math.random() * 2;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
                 star.style.background = 'white';
                 star.style.borderRadius = '50%';
-                star.style.boxShadow = '0 0 ' + (size*2) + 'px rgba(255,255,255,0.8)';
-                star.style.animation = `pulse ${Math.random()*4 + 2}s infinite`;
                 star.style.opacity = Math.random();
                 container.appendChild(star);
             }
         }
 
-        // ====================================================================
-        // PHẦN 4: LIGHTBOX & KHUI QUÀ
-        // ====================================================================
-        
         function openModal(obj) {
             isPaused = true; 
             const modal = document.getElementById('modal');
@@ -618,21 +711,37 @@
             }, 10);
         }
 
+        // HÀM MỞ QUÀ ĐẶC BIỆT KÈM CHUỖI 4 CÂU LẦN LƯỢT XUẤT HIỆN
+        let messageTimeouts = [];
+
         function openSpecialGift() {
             isPaused = true;
             const modal = document.getElementById('modal');
             const modalData = document.getElementById('modalData');
 
-            modalData.innerHTML = `
-                <img src="${specialGiftConfig.imgSrc}" style="border: 4px solid #ffeb3b; box-shadow: 0 0 50px #ffeb3b;">
-                <div class="modal-text special-gift-text">${specialGiftConfig.message}</div>
-            `;
+            let msgHTML = `<img src="${specialGiftConfig.imgSrc}" style="border: 3px solid #ffeb3b; box-shadow: 0 0 30px #ffeb3b;">`;
+            msgHTML += `<div class="special-message-box">`;
+            specialGiftConfig.messages.forEach((msg, idx) => {
+                msgHTML += `<div class="special-msg-line" id="msg-line-${idx}">${msg}</div>`;
+            });
+            msgHTML += `</div>`;
+
+            modalData.innerHTML = msgHTML;
 
             modal.style.display = 'flex';
             setTimeout(() => {
                 modal.style.opacity = '1';
                 modal.querySelector('.modal-content').style.transform = 'scale(1)';
             }, 10);
+
+            // Cho các dòng chữ hiện lần lượt mỗi 1.2 giây
+            specialGiftConfig.messages.forEach((_, idx) => {
+                let t = setTimeout(() => {
+                    const lineEl = document.getElementById(`msg-line-${idx}`);
+                    if(lineEl) lineEl.classList.add('show');
+                }, 800 + (idx * 1400));
+                messageTimeouts.push(t);
+            });
 
             fireConfetti();
         }
@@ -641,27 +750,33 @@
             const modal = document.getElementById('modal');
             modal.style.opacity = '0';
             modal.querySelector('.modal-content').style.transform = 'scale(0.8)';
+            
+            // Xóa các timeout hiển thị chữ dở dang
+            messageTimeouts.forEach(t => clearTimeout(t));
+            messageTimeouts = [];
+
             setTimeout(() => {
                 modal.style.display = 'none';
                 isPaused = false; 
-            }, 400);
+            }, 300);
         }
 
         function fireConfetti() {
             const modal = document.getElementById('modal');
             const emojis = ['🎉', '💖', '🎁', '✨', '🎂'];
-            for(let i = 0; i < 50; i++) {
+            for(let i = 0; i < 35; i++) {
                 let conf = document.createElement('div');
                 conf.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                 conf.className = 'confetti';
                 conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.top = -50 + 'px';
-                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                conf.style.animationDelay = (Math.random() * 1) + 's';
+                conf.style.top = -30 + 'px';
+                conf.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                conf.style.animationDelay = (Math.random() * 0.8) + 's';
                 modal.appendChild(conf);
                 
-                setTimeout(() => conf.remove(), 5000);
+                setTimeout(() => conf.remove(), 4000);
             }
         }
     </script>
 </body>
+</html>
