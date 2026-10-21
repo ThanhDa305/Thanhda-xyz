@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bí Mật Của Nhựt Lam ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05010f;
+            --box-color: #e63946;
+            --ribbon-color: #f4a261;
+            --glow-color: #ff9a9e;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: var(--bg-color);
+            font-family: 'Baloo 2', cursive;
+            color: white;
+            perspective: 1200px;
+            touch-action: none;
+        }
+
+        /* =========================================
+           HIỆU ỨNG ĐIỆN ẢNH & MÀN HÌNH CHỜ (INTRO)
+           ========================================= */
+        #intro {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh; /* Phủ kín toàn bộ khung nhìn */
+            background: #000;
+            z-index: 9999;
+            transition: background 1.5s ease-in-out;
+        }
+
+        /* DÙNG ABSOLUTE ĐỂ ÉP BUỘC CANH GIỮA TUYỆT ĐỐI (BULLETPROOF) */
+        .intro-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .cinema-bar {
+            position: fixed;
+            left: 0; width: 100%; height: 12%;
+            background: #000;
+            z-index: 10000;
+            transition: height 2s cubic-bezier(0.65, 0, 0.35, 1);
+            pointer-events: none;
+        }
+        .cinema-bar.top { top: 0; }
+        .cinema-bar.bottom { bottom: 0; }
+
+        .intro-text {
+            text-align: center;
+            z-index: 2;
+            margin-bottom: 40px; /* Tạo khoảng cách giữa chữ và hộp quà */
+        }
+        .intro-text h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin: 0 0 5px 0;
+            opacity: 0.8;
+            animation: breathe 3s infinite alternate;
+        }
+        .intro-text p {
+            font-size: 1.3em;
+            color: #ccc;
+            margin: 0;
+            letter-spacing: 2px;
+            font-family: 'Baloo 2', cursive;
+        }
+
+        @keyframes breathe {
+            from { text-shadow: 0 0 10px rgba(255,255,255,0.3); opacity: 0.7; }
+            to { text-shadow: 0 0 30px #ff9a9e; opacity: 1; transform: scale(1.02); }
+        }
+
+        /* HỘP QUÀ CSS 2D Ở INTRO */
+        .gift-wrapper {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gift-wrapper:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px rgba(230, 57, 70, 0.6));
+        }
+
+        .gift-lid {
+            width: 160px;
+            height: 35px;
+            background: var(--box-color);
+            border-radius: 6px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.3);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .gift-lid::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 30px; height: 100%; background: var(--ribbon-color);
+        }
+
+        .bow {
+            position: absolute; width: 40px; height: 40px;
+            border: 8px solid var(--ribbon-color); border-radius: 50%;
+            top: -25px; z-index: -1;
+        }
+        .bow-left { left: 30px; transform: rotate(-30deg); }
+        .bow-right { right: 30px; transform: rotate(30deg); }
+
+        .gift-base {
+            width: 145px;
+            height: 120px;
+            background: var(--box-color);
+            margin: 0 auto;
+            border-radius: 0 0 8px 8px;
+            position: relative;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .gift-base::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 30px; height: 100%; background: var(--ribbon-color);
+        }
+        .gift-base::after {
+            content: ''; position: absolute; top: 40%; left: 0;
+            width: 100%; height: 25px; background: var(--ribbon-color);
+        }
+
+        #flash-overlay {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 0%, var(--glow-color) 40%, transparent 100%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.5s;
+        }
+        #flash-overlay.explode {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(300);
+        }
+
+        /* =========================================
+           VŨ TRỤ 3D & CÁC VẬT THỂ
+           ========================================= */
+        #stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none; opacity: 0;
+            transition: opacity 2s ease-in;
+            background: radial-gradient(circle at 50% 50%, #170b2e 0%, #020005 100%);
+        }
+
+        #scene {
+            position: absolute; top: 50%; left: 50%;
+            width: 0; height: 0;
+            transform-style: preserve-3d;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .item {
+            position: absolute; transform-style: preserve-3d;
+            cursor: pointer; display: flex;
+            justify-content: center; align-items: center;
+            transition: transform 0.4s ease-out; 
+        }
+
+        .item:hover {
+            transform: scale(1.1) !important; 
+        }
+
+        .item-img {
+            width: 220px; height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 25px rgba(255, 154, 158, 0.2), 0 20px 40px rgba(0,0,0,0.8);
+            pointer-events: auto;
+            transition: box-shadow 0.3s, border 0.3s;
+        }
+        .item-img:hover {
+            box-shadow: 0 0 35px rgba(255, 154, 158, 0.8), 0 20px 40px rgba(0,0,0,0.8);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .item-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 38px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            white-space: nowrap; pointer-events: auto;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.02);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+        }
+        .item-text:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1), 0 0 20px rgba(255,154,158,0.5);
+        }
+
+        /* HỘP QUÀ SIÊU TO BAY TRONG KHÔNG GIAN */
+        .giant-gift-item {
+            flex-direction: column;
+            pointer-events: auto;
+        }
+        .giant-gift-icon {
+            font-size: 160px;
+            filter: drop-shadow(0 0 40px #ff0000) drop-shadow(0 0 80px #ffaa00);
+            animation: heartbeat 1.5s infinite;
+        }
+        .giant-gift-label {
+            font-family: 'Baloo 2', cursive;
+            font-size: 30px;
+            color: #ffeb3b;
+            text-shadow: 0 0 20px #ff9800;
+            margin-top: 15px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.6);
+            padding: 5px 25px;
+            border-radius: 30px;
+            border: 3px solid #ffeb3b;
+            box-shadow: 0 0 20px #ffeb3b;
+            animation: floatLabel 2s infinite alternate;
+        }
+
+        @keyframes floatLabel {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+
+        /* =========================================
+           POPUP CHI TIẾT (CANH GIỮA HOÀN TOÀN)
+           ========================================= */
+        #modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 10000; opacity: 0; transition: opacity 0.4s;
+            overflow: hidden;
+        }
+        
+        .modal-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: auto; max-width: 90vw;
+            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            margin: auto;
+        }
+        
+        .modal-content img {
+            width: auto;
+            max-width: 90vw; 
+            max-height: 45vh; 
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 154, 158, 0.4);
+            border: 2px solid rgba(255,255,255,0.2);
+            object-fit: contain;
+            margin-bottom: 25px; 
+            display: block;
+        }
+        
+        .modal-content .modal-text {
+            font-family: 'Dancing Script', cursive; font-size: 3.5em;
+            color: #fff; text-shadow: 0 0 30px rgba(255, 105, 180, 1);
+            text-align: center; margin: 0; padding: 0;
+        }
+
+        .special-gift-text {
+            font-family: 'Baloo 2', cursive !important;
+            font-size: 1.6em !important; 
+            color: #ffeb3b !important;
+            text-shadow: 0 0 20px rgba(255,0,0,0.8) !important;
+            line-height: 1.4;
+            max-width: 90vw;
+            margin-top: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px; right: 25px;
+            padding: 10px 25px;
+            font-size: 1.1em; font-family: 'Baloo 2', cursive;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); color: white;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            backdrop-filter: blur(5px);
+            z-index: 10001;
+        }
+        .close-btn:hover {
+            background: white; color: var(--bg-color);
+            box-shadow: 0 0 20px white;
+        }
+        
+        .music-note {
+            position: fixed; bottom: 30px; right: 30px;
+            color: rgba(255,255,255,0.3); font-size: 0.9em; z-index: 100;
+            letter-spacing: 1px;
+            opacity: 0; transition: opacity 2s;
+        }
+
+        .confetti {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall 3s ease-in forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c6ff1bfd.mp3?filename=romantic-piano-114484.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="cinema-bar top" id="bar-top"></div>
+    <div class="cinema-bar bottom" id="bar-bottom"></div>
+
+    <!-- MÀN HÌNH CHỜ: DÙNG CONTAINER CANH GIỮA TUYỆT ĐỐI -->
+    <div id="intro">
+        <div class="intro-container">
+            <div class="intro-text">
+                <h1>Dành tặng Nhựt Lam...</h1>
+                <p>Chạm vào hộp quà để mở</p>
+            </div>
+            
+            <div class="gift-wrapper" onclick="openCinematicGift()">
+                <div class="gift-lid" id="gift-lid">
+                    <div class="bow bow-left"></div>
+                    <div class="bow bow-right"></div>
+                </div>
+                <div class="gift-base"></div>
+            </div>
+        </div>
+        <div id="flash-overlay"></div>
+    </div>
+
+    <!-- VŨ TRỤ 3D -->
+    <div id="stars-container"></div>
+    <div id="scene"></div>
+
+    <!-- POPUP PHÓNG TO KHI CLICK -->
+    <div id="modal">
+        <button class="close-btn" onclick="closeModal()">Đóng Lại</button>
+        <div class="modal-content" id="modalData"></div>
+    </div>
+    
+    <div class="music-note" id="hint-note">🎵 Trượt để xoay không gian 3D</div>
+
+    <script>
+        // ====================================================================
+        // PHẦN 1: CẤU HÌNH DỮ LIỆU
+        // ====================================================================
+        
+        // 🌟🌟🌟 MÓN QUÀ ĐẶC BIỆT 🌟🌟🌟
+        const specialGiftConfig = {
+            imgSrc: "https://placehold.co/600x600/e63946/ffffff?text=Hinh+Mon+Qua", 
+            message: "Tadaaa! Quà online đây! 🎁<br>Còn bây giờ... quay sang nhìn anh để khui quà TRỰC TIẾP nha công chúa ơi! 🥰"
+        };
+
+        const myMemories = [
+            { type: 'img', content: 'https://placehold.co/400x500/170b2e/ff9a9e?text=Hinh+Lam+1' },
+            { type: 'img', content: 'https://placehold.co/500x400/170b2e/ff9a9e?text=Hinh+Di+Choi' },
+            { type: 'img', content: 'https://placehold.co/400x600/170b2e/ff9a9e?text=Hinh+Di+An' },
+            { type: 'img', content: 'https://placehold.co/450x450/170b2e/ff9a9e?text=Hinh+Hai+Dua' },
+            { type: 'img', content: 'https://placehold.co/400x500/170b2e/ff9a9e?text=Hinh+Cute' },
+            
+            { type: 'text', content: 'Chúc bé Lam sinh nhật rực rỡ! 🎉' },
+            { type: 'text', content: 'Công chúa nhỏ của anh Đa ❤️' },
+            { type: 'text', content: 'Tuổi mới ngày càng xinh đẹp nha!' },
+            { type: 'text', content: 'Ăn sập Cần Thơ tiếp nhé! 🍜🍣' },
+            { type: 'text', content: 'Yêu em bé vô cực luôn! 🥰' },
+            { type: 'text', content: 'Mãi luôn hạnh phúc nhé em!' },
+            { type: 'text', content: 'Thương em nhất trên đời! 💕' }
+        ];
+
+        // ====================================================================
+        // PHẦN 2: SEQUENCE HIỆU ỨNG ĐIỆN ẢNH (CINEMATIC BOX)
+        // ====================================================================
+        let isOpening = false;
+
+        function openCinematicGift() {
+            if(isOpening) return;
+            isOpening = true;
+            
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.volume = 0.5;
+            bgMusic.play().catch(e => console.log("Trình duyệt chặn autoplay"));
+
+            document.getElementById('gift-lid').style.transform = 'translateY(-80px) rotate(15deg) scale(1.1)';
+            document.querySelector('.intro-text').style.opacity = '0';
+            document.querySelector('.intro-text').style.transition = 'opacity 0.5s';
+
+            setTimeout(() => {
+                document.getElementById('flash-overlay').classList.add('explode');
+            }, 400);
+
+            setTimeout(() => {
+                document.getElementById('intro').style.opacity = '0';
+                document.getElementById('bar-top').style.height = '0';
+                document.getElementById('bar-bottom').style.height = '0';
+
+                init3DSpace();
+                createStars();
+                
+                document.getElementById('scene').style.opacity = '1';
+                document.getElementById('stars-container').style.opacity = '1';
+                document.getElementById('hint-note').style.opacity = '1';
+
+                setTimeout(() => {
+                    document.getElementById('intro').style.display = 'none';
+                }, 2000);
+            }, 1600);
+        }
+
+        // ====================================================================
+        // PHẦN 3: ENGINE 3D & HỘP QUÀ BAY
+        // ====================================================================
+        const scene = document.getElementById('scene');
+        let elements = [];
+        let isPaused = false;
+        
+        let targetRotX = 0, targetRotY = 0;
+        let currentRotX = 0, currentRotY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if(isPaused) return;
+            const x = (e.clientX / window.innerWidth) - 0.5;
+            const y = (e.clientY / window.innerHeight) - 0.5;
+            targetRotY = x * 40; 
+            targetRotX = -y * 40; 
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if(isPaused) return;
+            const touch = e.touches[0];
+            const x = (touch.clientX / window.innerWidth) - 0.5;
+            const y = (touch.clientY / window.innerHeight) - 0.5;
+            targetRotY = x * 60;
+            targetRotX = -y * 60;
+        });
+
+        function init3DSpace() {
+            const fullItems = [...myMemories, ...myMemories, ...myMemories]; 
+            fullItems.forEach((item, i) => {
+                const el = document.createElement('div');
+                el.className = 'item';
+                
+                if(item.type === 'img') {
+                    el.innerHTML = `<img src="${item.content}" class="item-img" alt="Kỷ niệm">`;
+                } else {
+                    el.innerHTML = `<div class="item-text">${item.content}</div>`;
+                }
+
+                const obj = {
+                    el: el,
+                    data: item,
+                    x: (Math.random() - 0.5) * 4000, 
+                    y: (Math.random() - 0.5) * 2500, 
+                    z: Math.random() * -6000 - 1500, 
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    vz: Math.random() * 1.5 + 0.8, 
+                    rotZ: (Math.random() - 0.5) * 20,
+                    bobAngle: Math.random() * Math.PI * 2,
+                    bobSpeed: Math.random() * 0.01 + 0.005
+                };
+
+                el.addEventListener('click', () => openModal(obj));
+                el.addEventListener('mouseenter', () => el.style.zIndex = "100");
+                el.addEventListener('mouseleave', () => el.style.zIndex = "1");
+
+                scene.appendChild(el);
+                elements.push(obj);
+            });
+
+            // Delay 10s mới hiện hộp quà
+            setTimeout(() => {
+                createGiantGift();
+            }, 10000); 
+
+            animate();
+        }
+
+        function createGiantGift() {
+            const specialEl = document.createElement('div');
+            specialEl.className = 'item giant-gift-item';
+            specialEl.innerHTML = `
+                <div class="giant-gift-icon">🎁</div>
+                <div class="giant-gift-label">MỞ QUÀ ĐI EM!</div>
+            `;
+            
+            const specialObj = {
+                el: specialEl,
+                isSpecial: true,
+                x: 0, 
+                y: 0, 
+                z: -4000, 
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                vz: 2.5, 
+                rotZ: 0,
+                bobAngle: 0,
+                bobSpeed: 0.02
+            };
+
+            specialEl.addEventListener('click', openSpecialGift);
+            scene.appendChild(specialEl);
+            elements.push(specialObj);
+        }
+
+        function animate() {
+            if (!isPaused) {
+                currentRotX += (targetRotX - currentRotX) * 0.03;
+                currentRotY += (targetRotY - currentRotY) * 0.03;
+                scene.style.transform = `translateZ(800px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+
+                elements.forEach(obj => {
+                    obj.x += obj.vx;
+                    obj.y += obj.vy;
+                    obj.z += obj.vz; 
+                    
+                    obj.bobAngle += obj.bobSpeed;
+                    const bobY = Math.sin(obj.bobAngle) * 15;
+
+                    let maxZ = obj.isSpecial ? 1200 : 800;
+                    
+                    if (obj.z > maxZ) {
+                        obj.z = -6000;
+                        obj.x = (Math.random() - 0.5) * 4000;
+                        obj.y = (Math.random() - 0.5) * 2500;
+                    }
+
+                    obj.el.style.transform = `translate3d(${obj.x}px, ${obj.y + bobY}px, ${obj.z}px) rotateZ(${obj.rotZ}deg)`;
+                });
+            }
+            requestAnimationFrame(animate);
+        }
+
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            for(let i=0; i<200; i++) {
+                let star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                let size = Math.random() * 2.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.background = 'white';
+                star.style.borderRadius = '50%';
+                star.style.boxShadow = '0 0 ' + (size*2) + 'px rgba(255,255,255,0.8)';
+                star.style.animation = `pulse ${Math.random()*4 + 2}s infinite`;
+                star.style.opacity = Math.random();
+                container.appendChild(star);
+            }
+        }
+
+        // ====================================================================
+        // PHẦN 4: LIGHTBOX & KHUI QUÀ
+        // ====================================================================
+        
+        function openModal(obj) {
+            isPaused = true; 
+            const modal = document.getElementById('modal');
+            const modalData = document.getElementById('modalData');
+            
+            if(obj.data.type === 'img') {
+                modalData.innerHTML = `<img src="${obj.data.content}">`;
+            } else {
+                modalData.innerHTML = `<div class="modal-text">${obj.data.content}</div>`;
+            }
+            
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.querySelector('.modal-content').style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function openSpecialGift() {
+            isPaused = true;
+            const modal = document.getElementById('modal');
+            const modalData = document.getElementById('modalData');
+
+            modalData.innerHTML = `
+                <img src="${specialGiftConfig.imgSrc}" style="border: 4px solid #ffeb3b; box-shadow: 0 0 50px #ffeb3b;">
+                <div class="modal-text special-gift-text">${specialGiftConfig.message}</div>
+            `;
+
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.querySelector('.modal-content').style.transform = 'scale(1)';
+            }, 10);
+
+            fireConfetti();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.opacity = '0';
+            modal.querySelector('.modal-content').style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                isPaused = false; 
+            }, 400);
+        }
+
+        function fireConfetti() {
+            const modal = document.getElementById('modal');
+            const emojis = ['🎉', '💖', '🎁', '✨', '🎂'];
+            for(let i = 0; i < 50; i++) {
+                let conf = document.createElement('div');
+                conf.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = -50 + 'px';
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                conf.style.animationDelay = (Math.random() * 1) + 's';
+                modal.appendChild(conf);
+                
+                setTimeout(() => conf.remove(), 5000);
+            }
+        }
+    </script>
+</body>
