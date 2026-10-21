@@ -26,6 +26,43 @@
             user-select: none;
         }
 
+        /* NÚT ĐIỀU KHIỂN NHẠC GÓC TRÊN */
+        #music-toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10005;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 0.9em;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        #music-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .music-icon {
+            font-size: 1.1em;
+            animation: spinNote 3s linear infinite;
+            display: inline-block;
+        }
+        .paused .music-icon {
+            animation-play-state: paused;
+        }
+        @keyframes spinNote {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* =========================================
            CHUỖI DÒNG CHỮ INTRO (MỖI DÒNG 3 GIÂY)
            ========================================= */
@@ -178,7 +215,7 @@
             width: 100%; height: 20px; background: var(--ribbon-color);
         }
 
-        /* HIỆU ỨNG TIA SÁNG MỞ ĐẦU HOÀN TOÀN MỚI */
+        /* HIỆU ỨNG TIA SÁNG MỞ ĐẦU */
         #flash-overlay {
             position: fixed;
             top: 50%; left: 50%;
@@ -201,7 +238,7 @@
         }
 
         /* =========================================
-           VŨ TRỤ 3D & THẺ KỶ NIỆM (TỐI ƯU MOBILE)
+           VŨ TRỤ 3D & THẺ KỶ NIỆM
            ========================================= */
         #stars-container {
             position: fixed;
@@ -371,7 +408,7 @@
             z-index: 10001;
         }
         
-        .music-note {
+        .music-note-hint {
             position: fixed; bottom: 15px; right: 15px;
             color: rgba(255,255,255,0.4); font-size: 0.8em; z-index: 100;
             letter-spacing: 0.5px;
@@ -392,13 +429,18 @@
         }
     </style>
 </head>
-<body>
+<body onclick="tryPlayMusicOnce()">
 
     <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c6ff1bfd.mp3?filename=romantic-piano-114484.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- CHUỖI DÒNG CHỮ INTRO (3S MỖI DÒNG) -->
+    <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
+    <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)">
+        <span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
+    </button>
+
+    <!-- CHUỖI DÒNG CHỮ INTRO -->
     <div id="story-intro">
         <div class="story-text-line" id="line-0">Hôm nay là 31 tháng 10</div>
         <div class="story-text-line" id="line-1">Là ngày lễ tốt nghiệp của ảnh</div>
@@ -440,17 +482,46 @@
         <div class="modal-content" id="modalData"></div>
     </div>
     
-    <div class="music-note" id="hint-note">🎵 Vuốt nhẹ để lướt ảnh không gian 3D</div>
+    <div class="music-note-hint" id="hint-note">🎵 Vuốt nhẹ để lướt ảnh không gian 3D</div>
 
     <script>
+        const bgMusic = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-toggle-btn');
+        const musicText = document.getElementById('music-text');
+        let isMusicPlaying = false;
+
+        function tryPlayMusicOnce() {
+            if (!isMusicPlaying) {
+                bgMusic.volume = 0.5;
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.remove('paused');
+                    musicText.textContent = "Tắt nhạc";
+                }).catch(e => console.log("Chờ tương tác người dùng"));
+            }
+        }
+
+        function toggleMusic(e) {
+            e.stopPropagation(); // Không ăn sự kiện click lan ra body
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                musicBtn.classList.add('paused');
+                musicText.textContent = "Bật nhạc";
+            } else {
+                bgMusic.volume = 0.5;
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.remove('paused');
+                    musicText.textContent = "Tắt nhạc";
+                });
+            }
+        }
+
         const lines = document.querySelectorAll('.story-text-line');
         let currentLine = 0;
 
         function playStoryIntro() {
-            const bgMusic = document.getElementById('bg-music');
-            bgMusic.volume = 0.5;
-            bgMusic.play().catch(e => console.log("Trình duyệt chặn autoplay"));
-
             if (currentLine < lines.length) {
                 if(currentLine > 0) {
                     lines[currentLine - 1].classList.remove('active');
@@ -504,12 +575,12 @@
         function openCinematicGift() {
             if(isOpening) return;
             isOpening = true;
+            tryPlayMusicOnce();
 
             document.getElementById('gift-lid').style.transform = 'translateY(-90px) rotate(20deg) scale(1.15)';
             document.querySelector('.intro-text').style.opacity = '0';
             document.querySelector('.intro-text').style.transition = 'opacity 0.3s';
 
-            // Hiệu ứng tia sáng vút lên rồi mở rộng che màn hình
             const flash = document.getElementById('flash-overlay');
             flash.classList.add('beam-up');
 
@@ -542,7 +613,6 @@
         let targetRotX = 0, targetRotY = 0;
         let currentRotX = 0, currentRotY = 0;
 
-        // Xử lý chuột (Desktop)
         document.addEventListener('mousemove', (e) => {
             if(isPaused) return;
             const x = (e.clientX / window.innerWidth) - 0.5;
@@ -551,7 +621,6 @@
             targetRotX = -y * 25; 
         });
 
-        // Xử lý cảm ứng lướt mượt mà trên Mobile
         let touchStartX = 0, touchStartY = 0;
         document.addEventListener('touchstart', (e) => {
             if(e.touches.length > 0) {
