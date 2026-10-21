@@ -483,8 +483,8 @@
 
         function initAudio() {
             if (!bgMusic) {
-                // Tạo Audio object trực tiếp bằng JavaScript trỏ tới file .m4a trên Drive của ông
-                bgMusic = new Audio("https://docs.google.com/uc?export=download&id=1lqMhC0985KcCpzb1TokkB0PPcJBKRXK6");
+                // Trỏ thẳng đến file happy.m4a nằm cùng thư mục trên GitHub repo của ông
+                bgMusic = new Audio("happy.m4a");
                 bgMusic.loop = true;
                 bgMusic.volume = 0.7;
             }
@@ -693,15 +693,15 @@
             const specialObj = {
                 el: specialEl,
                 isSpecial: true,
-                    x: 0, 
-                    y: 0, 
-                    z: -3000, 
-                    vx: 0,
-                    vy: 0,
-                    vz: 1.8, 
-                    rotZ: 0,
-                    bobAngle: 0,
-                    bobSpeed: 0.02
+                x: 0, 
+                y: 0, 
+                z: -3000, 
+                vx: 0,
+                vy: 0,
+                vz: 1.8, 
+                rotZ: 0,
+                bobAngle: 0,
+                bobSpeed: 0.02
             };
 
             specialEl.addEventListener('click', openSpecialGift);
