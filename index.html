@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hôm Nay Ăn Gì - Cần Thơ Edition</title>
+    <title>Hôm Nay Đi Đâu, Ăn Gì - Cần Thơ Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,6 +12,8 @@
             --dark: #292F36;
             --light: #F7FFF7;
             --yellow: #FFE66D;
+            --purple: #A663CC;
+            --map-color: #4285F4;
         }
 
         body {
@@ -42,20 +44,14 @@
         h1 {
             font-family: 'Baloo 2', cursive;
             margin: 0;
-            font-size: 2.5em;
+            font-size: 2.3em;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
         }
 
-        p.subtitle {
-            margin: 5px 0 0;
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        /* --- LOVE BANNER STYLES (MOVED TO TOP) --- */
+        /* --- LOVE BANNER --- */
         .love-banner {
             margin-top: 10px;
-            padding: 10px 15px;
+            padding: 8px 15px;
             text-align: center;
             width: 100%;
             max-width: 500px;
@@ -67,7 +63,7 @@
 
         .love-text {
             font-family: 'Nunito', sans-serif;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 700;
             color: white;
             line-height: 1.4;
@@ -76,13 +72,13 @@
         .highlight-name {
             color: var(--yellow);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            font-size: 1.1em;
+            font-size: 1.05em;
         }
 
         .heart-icon {
             display: inline-block;
             color: #FFD166;
-            font-size: 1.2em;
+            font-size: 1.1em;
             animation: heartbeat 1.2s infinite;
             margin: 0 3px;
         }
@@ -95,31 +91,142 @@
             70% { transform: scale(1); }
         }
 
+        /* --- USER INFO BAR --- */
+        .user-info-bar {
+            background: rgba(0,0,0,0.15);
+            padding: 5px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .user-info-bar span {
+            font-weight: bold;
+            color: var(--yellow);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85em;
+            transition: 0.2s;
+        }
+        .logout-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* --- LOGIN MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: bounceIn 0.5s;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            60% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .modal-content h2 {
+            font-family: 'Baloo 2', cursive;
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        
+        .modal-content p {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .login-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+            transition: 0.2s;
+            width: 100%;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
+        }
+
         /* --- TABS --- */
         .tabs-container {
             display: flex;
             width: 100%;
             max-width: 500px;
-            margin-top: 20px;
+            margin-top: 15px;
             background: #eee;
             border-radius: 30px;
             padding: 5px;
             box-sizing: border-box;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            gap: 3px;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px 5px;
             border: none;
             background: transparent;
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
-            font-size: 1em;
+            font-size: 0.85em;
             color: #666;
             cursor: pointer;
             border-radius: 25px;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .tab-btn.active {
@@ -154,8 +261,8 @@
             background-color: white;
             border: 3px solid var(--primary);
             border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
+            padding: 20px 25px;
+            margin: 15px 0;
             text-align: center;
             width: 90%;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -169,31 +276,59 @@
 
         .food-name {
             font-family: 'Baloo 2', cursive;
-            font-size: 2.2em;
+            font-size: 1.8em;
             color: var(--primary);
             margin: 0;
             line-height: 1.2;
         }
 
         .food-desc {
-            margin-top: 10px;
+            margin-top: 6px;
             color: #666;
-            font-size: 1em;
+            font-size: 0.9em;
+        }
+
+        .food-address {
+            margin-top: 4px;
+            color: #444;
+            font-size: 0.85em;
+            font-style: italic;
+        }
+
+        /* MAP BUTTON IN RESULT */
+        .map-result-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 12px;
+            background-color: var(--map-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .map-result-btn:hover {
+            background-color: #3367d6;
+            transform: scale(1.05);
         }
 
         .spin-btn {
             background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.5em;
+            padding: 12px 35px;
+            font-size: 1.3em;
             font-family: 'Baloo 2', cursive;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 0 #3b9b94, 0 10px 20px rgba(0,0,0,0.2);
             transition: all 0.1s;
-            margin-top: 10px;
-            margin-bottom: 25px;
+            margin-top: 5px;
+            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
@@ -213,7 +348,7 @@
         .custom-input-area {
             width: 100%;
             background: white;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             box-sizing: border-box;
@@ -222,9 +357,9 @@
 
         .section-title {
             font-family: 'Baloo 2', cursive;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--dark);
             display: flex;
             justify-content: space-between;
@@ -234,16 +369,16 @@
         .input-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .item-input {
             flex: 1;
-            padding: 12px 15px;
+            padding: 10px 15px;
             border: 2px solid #ddd;
             border-radius: 10px;
             font-family: 'Nunito', sans-serif;
-            font-size: 1em;
+            font-size: 0.95em;
             outline: none;
         }
 
@@ -255,7 +390,7 @@
             background: var(--dark);
             color: white;
             border: none;
-            padding: 0 20px;
+            padding: 0 18px;
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
@@ -268,7 +403,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 350px;
+            max-height: 260px;
             overflow-y: auto;
         }
 
@@ -276,9 +411,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 8px 10px;
             background: #f9f9f9;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border-radius: 8px;
             border-left: 4px solid var(--secondary);
             transition: opacity 0.2s;
@@ -292,25 +427,31 @@
         .item-content-wrapper {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex: 1;
+            overflow: hidden;
         }
 
         .item-checkbox {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             accent-color: var(--primary);
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .item-info {
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .item-info strong {
             color: var(--dark);
-            transition: color 0.2s;
+            font-size: 0.95em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .item-row.unchecked .item-info strong {
@@ -320,8 +461,36 @@
 
         .item-info small {
             color: #777;
-            font-size: 0.8em;
-            margin-top: 2px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .map-icon-btn {
+            background: #e8f0fe;
+            color: var(--map-color);
+            border: none;
+            border-radius: 5px;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85em;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .map-icon-btn:hover {
+            background: #d2e3fc;
         }
 
         .del-btn {
@@ -329,14 +498,13 @@
             color: white;
             border: none;
             border-radius: 5px;
-            width: 25px;
-            height: 25px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            margin-left: 10px;
         }
 
         /* Animations */
@@ -346,8 +514,8 @@
         }
 
         @keyframes bounce {
-            from { transform: translateY(-5px); }
-            to { transform: translateY(5px); }
+            from { transform: translateY(-3px); }
+            to { transform: translateY(3px); }
         }
 
         .tada {
@@ -374,7 +542,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .select-actions button {
@@ -382,139 +550,361 @@
             border: none;
             color: var(--secondary);
             font-family: 'Nunito', sans-serif;
-            font-size: 0.85em;
+            font-size: 0.8em;
             font-weight: bold;
             cursor: pointer;
             text-decoration: underline;
+        }
+
+        /* --- HEART EXPLOSION EFFECT --- */
+        .floating-heart {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: explodeHeart ease-out forwards;
+        }
+
+        @keyframes explodeHeart {
+            0% { 
+                transform: translate(-50%, -50%) scale(0.1); 
+                opacity: 1; 
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.5) rotate(var(--rot));
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- OVERLAY ĐĂNG NHẬP -->
+    <div id="loginOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Đăng Nhập Quán Quen</h2>
+            <p>Nhập tên cặp đôi để lưu lại danh sách riêng của hai bạn trên máy này nha!</p>
+            <input type="text" id="usernameInput" class="login-input" placeholder="VD: Đa & Lam" autocomplete="off" onkeypress="handleEnter(event)">
+            <button class="login-btn" onclick="handleLogin()">Lưu Dữ Liệu!</button>
+        </div>
+    </div>
+
     <div class="header">
-        <h1>Hôm Nay Ăn Gì? 🤔</h1>
+        <h1>Hôm Nay Đi Đâu? 🤔</h1>
         
-        <!-- LOVE BANNER MOVED TO HEADER -->
-        <div class="love-banner" style="margin: 10px auto 0 auto;">
+        <!-- LOVE BANNER -->
+        <div class="love-banner" style="margin: 8px auto 0 auto;">
             <div class="love-text">
-                Trang web phục vụ mục đích ăn uống của cặp đôi<br>
+                Trang web phục vụ mục đích ăn uống & hẹn hò của cặp đôi<br>
                 <span class="highlight-name">Thanh Đa</span> 
                 <span class="heart-icon">❤️</span> 
                 <span class="highlight-name">Nhựt Lam</span>
             </div>
         </div>
+
+        <div class="user-info-bar" id="userInfoBar" style="display: none;">
+            <div>Đang lưu cho: <span id="displayUsername"></span></div>
+            <button class="logout-btn" onclick="handleLogout()">Đổi người</button>
+        </div>
     </div>
 
-    <!-- Tabs Navigation -->
+    <!-- Tabs Navigation (4 Tabs) -->
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="switchTab('cantho')">Đặc Sản Cần Thơ</button>
-        <button class="tab-btn" onclick="switchTab('custom')">Tự Nhập Món</button>
+        <button class="tab-btn active" onclick="switchTab('food')">Ăn Uống</button>
+        <button class="tab-btn" onclick="switchTab('drink')">Nước Nôi</button>
+        <button class="tab-btn" onclick="switchTab('activity')">Hẹn Hò/Play</button>
+        <button class="tab-btn" onclick="switchTab('workshop')">Workshop</button>
     </div>
 
-    <!-- TAB 1: Danh sách có sẵn Cần Thơ -->
-    <div id="tab-cantho" class="tab-content active">
-        <div class="result-box" id="resultBox1">
-            <h2 class="food-name" id="foodName1">Bấm nút ở dưới đi!</h2>
-            <p class="food-desc" id="foodDesc1">Hệ thống sẽ chọn ngẫu nhiên 1 trong các món ĐƯỢC TICK ở dưới.</p>
+    <!-- TAB 1: ĂN UỐNG -->
+    <div id="tab-food" class="tab-content active">
+        <div class="result-box" id="resultBoxFood">
+            <h2 class="food-name" id="foodNameFood">Bấm nút ở dưới đi!</h2>
+            <p class="food-desc" id="foodDescFood">Hệ thống chọn ngẫu nhiên món ăn ĐƯỢC TICK ở dưới.</p>
+            <p class="food-address" id="foodAddressFood" style="display: none;"></p>
+            <a id="mapBtnFood" href="#" target="_blank" class="map-result-btn" style="display: none;">📍 Tìm vị trí trên Map</a>
         </div>
-        <button class="spin-btn" id="spinBtn1" onclick="spinDefault()">CHỐT ĐƠN!</button>
+        <button class="spin-btn" id="spinBtnFood" onclick="spinTab('food')">CHỐT MÓN ĂN!</button>
 
         <div class="custom-input-area">
             <div class="section-title">
-                <span>Danh sách món (Đang chọn <span id="canthoActiveCount">0</span>/<span id="canthoTotalCount">0</span>)</span>
+                <span>Kho quán ngon (Chọn <span id="foodActiveCount">0</span>/<span id="foodTotalCount">0</span>)</span>
             </div>
-            
             <div class="select-actions">
-                <button onclick="toggleAll('cantho', true)">Chọn tất cả</button>
-                <button onclick="toggleAll('cantho', false)">Bỏ chọn tất cả</button>
+                <button onclick="toggleAll('food', true)">Chọn tất cả</button>
+                <button onclick="toggleAll('food', false)">Bỏ chọn</button>
             </div>
-
             <div class="input-group">
-                <input type="text" id="canthoItemInput" class="item-input" placeholder="Thêm món mới vào list này..." autocomplete="off">
-                <button class="add-btn" onclick="addCanthoItem()">Thêm</button>
+                <input type="text" id="foodItemInput" class="item-input" placeholder="Thêm quán ăn mới..." autocomplete="off">
+                <button class="add-btn" onclick="addItem('food')">Thêm</button>
             </div>
-            
-            <ul class="items-list" id="canthoList">
-                <!-- Items injected via JS -->
-            </ul>
-            <div class="empty-msg" id="canthoEmptyMsg">Đã xóa hết, hãy thêm món mới!</div>
+            <ul class="items-list" id="foodList"></ul>
+            <div class="empty-msg" id="foodEmptyMsg">Trống rỗng, hãy thêm món mới!</div>
         </div>
     </div>
 
-    <!-- TAB 2: Danh sách tự nhập -->
-    <div id="tab-custom" class="tab-content">
-        <div class="result-box" id="resultBox2">
-            <h2 class="food-name" id="foodName2">Đang chờ bạn...</h2>
-            <p class="food-desc" id="foodDesc2">Nhập và tick chọn ít nhất 2 món rồi bấm Random nhé!</p>
+    <!-- TAB 2: NƯỚC NÔI -->
+    <div id="tab-drink" class="tab-content">
+        <div class="result-box" id="resultBoxDrink">
+            <h2 class="food-name" id="foodNameDrink">Khát nước chưa?</h2>
+            <p class="food-desc" id="foodDescDrink">Random quán nước chill chill ở Cần Thơ.</p>
+            <p class="food-address" id="foodAddressDrink" style="display: none;"></p>
+            <a id="mapBtnDrink" href="#" target="_blank" class="map-result-btn" style="display: none;">📍 Tìm vị trí trên Map</a>
         </div>
-        <button class="spin-btn" id="spinBtn2" onclick="spinCustom()" disabled>RANDOM MÓN</button>
+        <button class="spin-btn" id="spinBtnDrink" onclick="spinTab('drink')">CHỐT QUÁN NƯỚC!</button>
 
         <div class="custom-input-area">
             <div class="section-title">
-                <span>Món tự tạo (Đang chọn <span id="customActiveCount">0</span>/<span id="customTotalCount">0</span>)</span>
+                <span>Quán Cafe / Trà Sữa Teen (Chọn <span id="drinkActiveCount">0</span>/<span id="drinkTotalCount">0</span>)</span>
             </div>
-            
-            <div class="select-actions" id="customActions" style="display: none;">
-                <button onclick="toggleAll('custom', true)">Chọn tất cả</button>
-                <button onclick="toggleAll('custom', false)">Bỏ chọn tất cả</button>
+            <div class="select-actions">
+                <button onclick="toggleAll('drink', true)">Chọn tất cả</button>
+                <button onclick="toggleAll('drink', false)">Bỏ chọn</button>
             </div>
-
             <div class="input-group">
-                <input type="text" id="customItemInput" class="item-input" placeholder="Nhập tên quán / món ăn..." autocomplete="off">
-                <button class="add-btn" onclick="addCustomItem()">Thêm</button>
+                <input type="text" id="drinkItemInput" class="item-input" placeholder="Thêm quán nước / cafe..." autocomplete="off">
+                <button class="add-btn" onclick="addItem('drink')">Thêm</button>
             </div>
-            
-            <ul class="items-list" id="customList">
-                <!-- Items injected via JS -->
-            </ul>
-            <div class="empty-msg" id="customEmptyMsg" style="display: block;">Chưa có món nào, hãy thêm vào nhé!</div>
+            <ul class="items-list" id="drinkList"></ul>
+            <div class="empty-msg" id="drinkEmptyMsg">Trống rỗng, hãy thêm quán mới!</div>
+        </div>
+    </div>
+
+    <!-- TAB 3: HẸN HÒ / HOẠT ĐỘNG -->
+    <div id="tab-activity" class="tab-content">
+        <div class="result-box" id="resultBoxActivity">
+            <h2 class="food-name" id="foodNameActivity">Hôm nay đi đâu chơi?</h2>
+            <p class="food-desc" id="foodDescActivity">Random địa điểm dạo chơi, giải trí tại Cần Thơ.</p>
+            <p class="food-address" id="foodAddressActivity" style="display: none;"></p>
+            <a id="mapBtnActivity" href="#" target="_blank" class="map-result-btn" style="display: none;">📍 Tìm vị trí trên Map</a>
+        </div>
+        <button class="spin-btn" id="spinBtnActivity" onclick="spinTab('activity')">CHỐT ĐỊA ĐIỂM!</button>
+
+        <div class="custom-input-area">
+            <div class="section-title">
+                <span>Hoạt động hẹn hò (Chọn <span id="activityActiveCount">0</span>/<span id="activityTotalCount">0</span>)</span>
+            </div>
+            <div class="select-actions">
+                <button onclick="toggleAll('activity', true)">Chọn tất cả</button>
+                <button onclick="toggleAll('activity', false)">Bỏ chọn</button>
+            </div>
+            <div class="input-group">
+                <input type="text" id="activityItemInput" class="item-input" placeholder="Thêm hoạt động / chỗ chơi..." autocomplete="off">
+                <button class="add-btn" onclick="addItem('activity')">Thêm</button>
+            </div>
+            <ul class="items-list" id="activityList"></ul>
+            <div class="empty-msg" id="activityEmptyMsg">Trống rỗng, hãy thêm hoạt động mới!</div>
+        </div>
+    </div>
+
+    <!-- TAB 4: WORKSHOP -->
+    <div id="tab-workshop" class="tab-content">
+        <div class="result-box" id="resultBoxWorkshop">
+            <h2 class="food-name" id="foodNameWorkshop">Khéo tay hay làm!</h2>
+            <p class="food-desc" id="foodDescWorkshop">Random các lớp workshop nghệ thuật, thủ công.</p>
+            <p class="food-address" id="foodAddressWorkshop" style="display: none;"></p>
+            <a id="mapBtnWorkshop" href="#" target="_blank" class="map-result-btn" style="display: none;">📍 Tìm vị trí trên Map</a>
+        </div>
+        <button class="spin-btn" id="spinBtnWorkshop" onclick="spinTab('workshop')">CHỐT WORKSHOP!</button>
+
+        <div class="custom-input-area">
+            <div class="section-title">
+                <span>Hoạt động Workshop (Chọn <span id="workshopActiveCount">0</span>/<span id="workshopTotalCount">0</span>)</span>
+            </div>
+            <div class="select-actions">
+                <button onclick="toggleAll('workshop', true)">Chọn tất cả</button>
+                <button onclick="toggleAll('workshop', false)">Bỏ chọn</button>
+            </div>
+            <div class="input-group">
+                <input type="text" id="workshopItemInput" class="item-input" placeholder="Thêm workshop mới..." autocomplete="off">
+                <button class="add-btn" onclick="addItem('workshop')">Thêm</button>
+            </div>
+            <ul class="items-list" id="workshopList"></ul>
+            <div class="empty-msg" id="workshopEmptyMsg">Trống rỗng, hãy thêm workshop mới!</div>
         </div>
     </div>
 
     <script>
-        // --- DATA CẦN THƠ (TÍCH HỢP TRẠNG THÁI CHECKED & THÊM 15 MÓN MỚI) ---
-        let canThoFoods = [
-            { name: "Vịt Nấu Chao", desc: "Đặc sản trứ danh Hẻm 1, thơm béo ngậy.", checked: true },
-            { name: "Nem Nướng Thanh Vân", desc: "Cuốn bánh tráng, rau sống cực dính.", checked: true },
-            { name: "Lẩu Mắm", desc: "Đậm đà hương vị miền Tây, bông súng, điên điển.", checked: true },
-            { name: "Pizza Hủ Tiếu", desc: "Lò hủ tiếu Sáu Hoài, giòn rụm lạ miệng.", checked: true },
-            { name: "Bánh Cống", desc: "Bánh cống Cô Út, bùi bùi đậu xanh và tôm.", checked: true },
-            { name: "Bánh Xèo Mười Xiềm", desc: "Vỏ mỏng giòn, nhân tôm thịt đầy đặn.", checked: true },
-            { name: "Ốc Nhé", desc: "Đủ món xào me, nướng mỡ hành.", checked: true },
-            { name: "Bún Quậy", desc: "Bún quậy Cần Thơ tôm chả tươi ngon.", checked: true },
-            { name: "Sủi Cảo A Chảy", desc: "Sủi cảo nước, mì khô đường Nguyễn Trãi.", checked: true },
-            { name: "Bò Né / Bò Lụi", desc: "Làm dĩa bò xèo xèo nóng hổi nào!", checked: true },
-            { name: "Lẩu Trâu", desc: "Lẩu trâu nấu mẻ chua thanh, ăn là ghiền.", checked: true },
-            { name: "Bún Đậu Mắm Tôm", desc: "Đổi gió chút hương vị Bắc giữa Cần Thơ.", checked: true },
-            { name: "Dimsum", desc: "Ăn sương sương nhẹ nhàng, chụp hình đẹp.", checked: true },
-            { name: "Đồ Nướng BBQ", desc: "Nướng ngói hoặc BBQ Hàn Quốc.", checked: true },
-            { name: "Hủ Tiếu Mực", desc: "Nước lèo ngọt thanh, mực tươi giòn.", checked: true },
+        // --- DATABASE CỰC KHỦNG 60+ MÓN & QUÁN TỔNG HỢP CẦN THƠ ---
+        const defaultDataSets = {
+            food: [
+                { name: "Vịt Nấu Chao Thành Giao", desc: "Hơn 30 năm trứ danh Hẻm 1 Lý Tự Trọng, thơm béo ngậy.", address: "Hẻm 1/8 Lý Tự Trọng, An Phú, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Nem Nướng Thanh Vân", desc: "Nem cuốn bánh tráng, rau sống nước chấm cực dính.", address: "17 Đại lộ Hòa Bình, Tân An, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lẩu Mắm Dạ Lý", desc: "Đậm đà hương vị miền Tây, tóp mỡ, heo quay, bông súng.", address: "89 Đường 3 Tháng 2, Xuân Khánh, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Pizza Hủ Tiếu Sáu Hoài", desc: "Lò hủ tiếu truyền thống chiên giòn rụm lạ miệng.", address: "476 Lộ Vòng Cung, An Bình, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Cống Cô Út", desc: "Bánh cống giòn rụm, bùi bùi đậu xanh và tôm tươi.", address: "Khu vực Trần Hưng Đạo, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Xèo Mười Xiềm", desc: "Vỏ mỏng giòn rụm, nhân củ hủ dừa tôm thịt đầy đặn.", address: "13/3 Đường 978, Trà Nóc, Bình Thủy, Cần Thơ", checked: true },
+                { name: "Ốc Nhé", desc: "Thiên đường ốc đủ món xào me, nướng mỡ hành.", address: "127 Đề Thám, An Cư, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bún Quậy Kien Xay", desc: "Bún quậy chả tôm cá tươi giòn dai tự nhiên.", address: "13 Nguyễn Trải, An Hội, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Sủi Cảo A Chảy", desc: "Sủi cảo nước và mì khô nhân ngập tràn đẫm vị.", address: "38 Trần Bình Trọng, An Phú, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bò Nướng Ngói Cù Lần", desc: "Tự tay nướng bò trên vỉ ngói xèo xèo thơm phức.", address: "Hẻm 1 Lý Tự Trọng, An Phú, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lẩu Trâu Mẻ Chua", desc: "Thịt trâu nhúng mẻ chua thanh, ăn là ghiền.", address: "Khu vực đường Nguyễn Văn Cừ, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bún Đậu Mắm Tôm Ba Phải", desc: "Đổi gió chuẩn vị Bắc, mắm tôm đậm đà topping đầy đủ.", address: "58A Mậu Thân, An Hòa, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Dimsum A Chảy", desc: "Ăn sương sương nhẹ nhàng, há cảo tôm thịt chất lượng.", address: "Đường Nguyễn Trãi, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Đồ Nướng BBQ Alô Dzô 100", desc: "Không gian rộng rãi, nướng ngói và lẩu đa dạng.", address: "55B1B Hồ Búng Xáng, An Khánh, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Hủ Tiếu Mực Cô Hạnh", desc: "Nước lèo ngọt thanh từ xương, mực tươi giòn sần sật.", address: "Đường Huỳnh Cương (Bờ Hồ Búng Xáng), Cần Thơ", checked: true },
+                { name: "Cá Lóc Nướng Trui Bờ Hồ", desc: "Cá lóc cuốn rau rừng chấm mắm me nhậu nhẹt cực đã.", address: "Khu vực Bờ Hồ Búng Xáng, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lẩu Gà Đá Mẻ Chua", desc: "Thịt gà đá dai giòn, nhúng lẩu chua cay ấm bụng.", address: "Quán ăn gia đình Lữ Gia, Lý Hồng Thanh, Cái Khế", checked: true },
+                { name: "Bánh Tằm Bì Cần Thơ", desc: "Nước cốt dừa béo ngậy trộn bì heo thính và nước mắm.", address: "Quán ăn Hồi Đó, 88/19A Đề Thám, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lẩu Bò Lò Mổ", desc: "Thịt bò tươi roi rói vừa mổ, nhúng lẩu ngọt lịm.", address: "Đường 3 Tháng 2, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bún Bò Huế Chị Gái", desc: "Tô bún bò giò heo chả cua cay nồng đậm đà chuẩn vị.", address: "Đường Cách Mạng Tháng Tám, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Sushi Hokkaido Cần Thơ", desc: "Cá hồi sashimi tươi rói cho ngày hẹn hò sang chảnh.", address: "Khu Vincom Xuân Khánh, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Gà Rán Jollibee / KFC", desc: "Đổi gió cắn miếng gà giòn rụm sốt cay ngọt.", address: "Vincom hoặc các TTTM Cần Thơ", checked: true },
+                { name: "Lẩu Dê Quán Gió Chiều", desc: "Thịt dê tươi mềm nấu thuốc bắc tẩm bổ cực ngon.", address: "70-72 Võ Văn Kiệt, An Hòa, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Xèo Cái Sơn", desc: "Đặc sản bánh xèo miền Tây nhân củ hủ dừa cực ngon.", address: "Khu vực Cái Sơn, Hàng Bàng, Cần Thơ", checked: true },
+                { name: "Đồ Ăn Chay Thanh Tịnh", desc: "Buffet chay thanh đạm thanh lọc cơ thể nhẹ nhàng.", address: "Quán chay Thiện Duyên, đường Nam Kỳ Khởi Nghĩa", checked: true },
+
+                // Món Bình Dân
+                { name: "Cơm Tấm Bà Ngôn", desc: "Sườn nướng mỡ hành đậm đà, hạt cơm tơi xốp.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Cơm Tấm Nhị Kiều", desc: "Quán đông khách, sườn bì chả bao no bụng.", address: "Ngã Tư Nhị Kiều, Cần Thơ", checked: true },
+                { name: "Cơm Tấm 114", desc: "Quen thuộc của sinh viên, ngon bổ rẻ.", address: "Khu Vực Cần Thơ", checked: true },
+                { name: "Cơm Gà Xối Mỡ", desc: "Đùi gà bự chà bá chiên giòn rụm, cơm rang thơm phức.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bún Mắm 173", desc: "Nước lèo đậm đà mắm cá, heo quay giòn da, hải sản tươi.", address: "Đường 3 Tháng 2, Cần Thơ", checked: true },
+                { name: "Bún Riêu Hẻm 1", desc: "Bún riêu cua đồng bình dân mộc mạc mà siêu dính.", address: "Hẻm 1 Lý Tự Trọng, Cần Thơ", checked: true },
+                { name: "Bún Thịt Nướng Kiều Bảo", desc: "Thịt nướng xèo xèo, chả giò giòn tan, ăn kèm nước mắm ngọt.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bún Chả Hà Nội", desc: "Đổi vị với bún chả nem cua bể chuẩn gốc Bắc.", address: "Khu vực trung tâm Cần Thơ", checked: true },
+                { name: "Bún Bò Xào", desc: "Thịt bò mềm xào hành tây, đậu phộng rang giòn béo.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Phở Danh", desc: "Phở bò nước lèo trong vắt, thanh ngọt từ xương.", address: "Xô Viết Nghệ Tĩnh, Cần Thơ", checked: true },
+                { name: "Phở Oanh", desc: "Tô phở bự, thịt bò mềm tan ăn cực đã.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Canh Ghẹ", desc: "Nước dùng sệt, thịt ghẹ chắc ngọt, quẩy giòn tan.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Canh Trảng Bàng", desc: "Ăn kèm thịt luộc, bánh tráng phơi sương và rau rừng.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Mì Cay Sasin / Omega", desc: "Thách thức mì cay 7 cấp độ cho ngày se lạnh.", address: "Các chi nhánh tại Cần Thơ", checked: true },
+                { name: "Quán Thái Ngò Rí", desc: "Món Thái cực xịn: Tomyum, Pad Thái chuẩn vị.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Khao Thai", desc: "Đồ Thái Lan giá cả bình dân, gỏi đu đủ đậm đà cay nồng.", address: "Đường Mạc Thiên Tích, Cần Thơ", checked: true },
+                { name: "Lẩu Bò Thanh Nam", desc: "Nồi lẩu bao no, thịt ngập mặt, nước lèo ngọt thanh.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lẩu Thái Sinh Viên", desc: "Lẩu hải sản chua cay, topping ngập tràn giá hạt dẻ.", address: "Khu vực Hẻm 51, Cần Thơ", checked: true },
+                { name: "Lẩu Cá Kèo", desc: "Cá kèo tươi roi rói nhúng lá giang chua nhẹ mướt môi.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Hủ Tiếu Nam Vang Huỳnh Châu", desc: "Hủ tiếu khô trộn nước sốt đỉnh cao, tôm thịt đầy đặn.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Cháo Ếch Singapore", desc: "Ếch kho tộ keo keo cay nồng, cháo trắng lá dứa thơm phức.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bò Né 3 Ngon", desc: "Bò né bít tết xèo xèo chảo gang, trứng ốp la béo ngậy.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Bánh Bèo / Bánh Bột Lọc", desc: "Mâm bánh Huế ăn vặt buổi xế chiều cực hợp lý.", address: "Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Cơm Trộn Hàn Quốc", desc: "Cơm trộn thố đá nóng hổi bốc khói, nhâm nhi cùng kim chi.", address: "Khu vực Mạc Thiên Tích, Cần Thơ", checked: true },
+                { name: "Gà Rán Chóp Chép", desc: "Quán gà rán ruột của sinh viên, phủ đủ loại sốt đậm đà.", address: "Hẻm 51, 3 Tháng 2, Cần Thơ", checked: true },
+                { name: "Bánh Mì Chảo", desc: "Pate xíu mại nóng hổi, chấm bánh mì xé giòn rụm.", address: "Các quán bánh mì chảo ở Cần Thơ", checked: true }
+            ],
+            drink: [
+                { name: "Tiệm Trà Cỏ Ngọt", desc: "Concept Đà Lạt mộng mơ, check-in sống ảo siêu xinh.", address: "Đường 3 Tháng 2, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Raw Coffee", desc: "Phong cách Minimalist Hàn Quốc, tone xám xi măng sang xịn.", address: "Đường Mạc Thiên Tích, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "The Nee", desc: "Không gian tone trắng đen cực ngầu, cafe đỉnh.", address: "142 Huỳnh Cương, Bờ hồ Búng Xáng, Cần Thơ", checked: true },
+                { name: "Infini-T", desc: "Hiện đại, trà sữa bánh ngọt ngon đỉnh cho couple.", address: "38A Xô Viết Nghệ Tĩnh, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Sống Cafe", desc: "Góc trạm xe buýt Hàn Quốc cực trend giới trẻ.", address: "Khu dân cư 91B, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Chò Nâu House", desc: "Quán tone gỗ vintage, yên tĩnh, lãng mạn nhẹ nhàng.", address: "150 Nguyễn Trãi, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Ghiền DaLat", desc: "Cả một Đà Lạt thu nhỏ giữa lòng Cần Thơ.", address: "Nguyễn Văn Cừ nối dài, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Katinat Saigon Kafe", desc: "Trà sữa oolong nướng siêu hot hit dạo gần đây.", address: "Đại lộ Hòa Bình, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Lily's Cafe & Macaron", desc: "Trà bánh kiểu Anh, bánh macaron cực ngon.", address: "171 Huỳnh Cương, Bờ hồ Búng Xáng, Cần Thơ", checked: true },
+                { name: "Hie - Tea & Coffee", desc: "Trà sữa, trà trái cây dâu tằm cực mát lạnh.", address: "Đường 3 Tháng 2, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Phúc Long Vincom", desc: "Trà đào cam sả trứ danh, dạo Vincom rồi uống.", address: "Vincom Xuân Khánh, Đường 30/4, Cần Thơ", checked: true },
+                { name: "Maison de Mia", desc: "Phong cách Pháp ngọt ngào, bánh ngon nước xịn.", address: "Đường Đồng Khởi, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Highlands Coffee Ninh Kiều", desc: "Mua ly phindi hóng gió bến Ninh Kiều siêu mát.", address: "Bến Ninh Kiều, Hai Bà Trưng, Cần Thơ", checked: true },
+                { name: "La Station", desc: "Decor thay đổi theo mùa, Tết/Noel bao sống ảo.", address: "288 Nguyễn Văn Linh, Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Tiệm Trà Chanh Chợ Cũ", desc: "Nhâm nhi trà chanh giã tay vỉa hè tám chuyện.", address: "Chợ cũ Ninh Kiều, Cần Thơ", checked: true }
+            ],
+            activity: [
+                { name: "Dạo Bến Ninh Kiều & Chợ Đêm", desc: "Đi bộ hóng gió sông Hậu, ăn vặt chợ đêm nhộn nhịp.", address: "Bến Ninh Kiều, Hai Bà Trưng, Cần Thơ", checked: true },
+                { name: "Xem phim tại Lotte / CGV", desc: "Lựa phim hot nhất tuần cắn bắp rang bơ máy lạnh.", address: "Lotte Cinema Ninh Kiều / Vincom Hùng Vương", checked: true },
+                { name: "Đi thuyền trên sông Hậu buổi tối", desc: "Ngắm cầu Cần Thơ lung linh huyền ảo trên du thuyền.", address: "Bến tàu du lịch Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Khám phá Chợ nổi Cái Răng", desc: "Trải nghiệm đi ghe xuồng, ăn sáng trên sông lúc bình minh.", address: "Chợ nổi Cái Răng, Cần Thơ", checked: true },
+                { name: "Lượn lờ Vincom Xuân Khánh", desc: "Mua sắm, chụp ảnh sống ảo và ăn uống máy lạnh.", address: "Khu dân cư Hưng Phú / Vincom Xuân Khánh", checked: true },
+                { name: "Thuê xe đạp dạo quanh thành phố", desc: "Đạp xe khám phá những con đường ngợp bóng cây xanh.", address: "Khu vực trung tâm Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Ghé Thiền viện Trúc Lâm Phương Nam", desc: "Vãn cảnh chùa thanh tịnh, tìm phút bình yên tâm hồn.", address: "Lộ Vòng Cung, Huyện Phong Điền, Cần Thơ", checked: true },
+                { name: "Lập kèo chơi Boardgame tại quán", desc: "Cùng nhau đấu trí vài ván game cực vui nhộn.", address: "Các quán Boardgame cafe tại Ninh Kiều", checked: true }
+            ],
+            workshop: [
+                { name: "Workshop Làm Gốm (Ceramics)", desc: "Cùng nhau nhào đất, nặn chiếc cốc kỷ niệm tình yêu.", address: "Studio gốm tại Ninh Kiều, Cần Thơ", checked: true },
+                { name: "Workshop Vẽ Tranh Canvas", desc: "Thả hồn vào màu vẽ, tạo bức tranh đôi ý nghĩa.", address: "Art Studio Cần Thơ", checked: true },
+                { name: "Workshop Làm Nến Thơm / Sáp Tươi", desc: "Tự tay pha mùi hương yêu thích cho căn phòng hai đứa.", address: "Handmade Workshop Cần Thơ", checked: true },
+                { name: "Workshop Làm Vòng Tay / Đồ Da", desc: "Tết vòng hoặc làm móc khóa da handmade khắc tên đôi.", address: "Craft House Cần Thơ", checked: true },
+                { name: "Workshop Cắm Hoa / Làm Kẹp Tóc", desc: "Tự tay thiết kế bó hoa hoặc phụ kiện xinh xắn.", address: "Flower & Craft Studio Cần Thơ", checked: true },
+                { name: "Lớp học làm bánh ngọt / pha chế", desc: "Cùng nhau đổ bánh kem hoặc lắc ly cocktail ngọt ngào.", address: "Baking Class Ninh Kiều, Cần Thơ", checked: true }
+            ]
+        };
+
+        let dataSets = {};
+        let currentUser = null;
+
+        // --- AUTH & DATA MANAGEMENT ---
+        function checkLogin() {
+            const savedUser = localStorage.getItem('activeUser');
+            if (savedUser) {
+                currentUser = savedUser;
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('userInfoBar').style.display = 'flex';
+                document.getElementById('displayUsername').innerText = currentUser;
+                loadUserData();
+                renderAllTabs();
+                setTimeout(createHeartExplosion, 300);
+            } else {
+                document.getElementById('loginOverlay').style.display = 'flex';
+            }
+        }
+
+        function handleEnter(e) {
+            if(e.key === 'Enter') handleLogin();
+        }
+
+        function handleLogin() {
+            const nameInput = document.getElementById('usernameInput').value.trim();
+            if (!nameInput) {
+                alert("Ê nhập tên vô chứ cha nội!");
+                return;
+            }
+            currentUser = nameInput;
+            localStorage.setItem('activeUser', currentUser);
             
-            // --- CÁC MÓN MỚI BỔ SUNG ---
-            { name: "Bún Mắm Dạ Lý", desc: "Bún mắm tóp mỡ, heo quay đậm đà.", checked: true },
-            { name: "Cá Lóc Nướng Trui", desc: "Ra bờ hồ bún xáng cuốn cá lóc nhậu nhẹt.", checked: true },
-            { name: "Cơm Tấm", desc: "Sáng trưa chiều tối ăn cơm tấm sườn bì chả mỡ hành.", checked: true },
-            { name: "Lẩu Gà Đá", desc: "Dai dai giòn giòn, uống kèm vài chai bia lạnh.", checked: true },
-            { name: "Bánh Tằm Bì", desc: "Nước cốt dừa béo ngậy trộn bì mắm ngọt.", checked: true },
-            { name: "Lẩu Bò Lò Mổ", desc: "Thịt bò tươi roi rói, nhúng lẩu siêu ngọt.", checked: true },
-            { name: "Bún Bò Huế", desc: "Tô bún bò giò heo chả cua cay nồng nàn.", checked: true },
-            { name: "Bánh Mì Chảo", desc: "Xíu mại, ốp la, pate nóng hổi chấm bánh mì.", checked: true },
-            { name: "Sushi / Đồ Nhật", desc: "Cá hồi sashimi tươi rói cho ngày sang chảnh.", checked: true },
-            { name: "Đồ Hàn Quốc", desc: "Tokbokki, mì cay, gà rán phủ phô mai béo ngậy.", checked: true },
-            { name: "Lẩu Cá Kèo", desc: "Lá giang chua chua nấu cá kèo ngọt thịt.", checked: true },
-            { name: "Gà Rán (Jollibee/KFC)", desc: "Đổi gió về tuổi thơ cắn miếng gà giòn rụm.", checked: true },
-            { name: "Lẩu Dê", desc: "Lẩu dê thuốc bắc tẩm bổ tăng cường nội công.", checked: true },
-            { name: "Đồ Chay", desc: "Ăn thanh đạm thanh lọc cơ thể tạo nghiệp lành.", checked: true },
-            { name: "Chè Hẻm", desc: "Ăn ngọt sương sương rồi về đi dạo bến Ninh Kiều.", checked: true }
-        ];
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('userInfoBar').style.display = 'flex';
+            document.getElementById('displayUsername').innerText = currentUser;
+            
+            loadUserData();
+            renderAllTabs();
+            createHeartExplosion();
+        }
 
-        // --- CUSTOM DATA ---
-        let customItems = [];
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('activeUser');
+            document.getElementById('userInfoBar').style.display = 'none';
+            document.getElementById('loginOverlay').style.display = 'flex';
+            document.getElementById('usernameInput').value = '';
+        }
 
-        // --- ON LOAD ---
+        function loadUserData() {
+            const savedData = localStorage.getItem('cThoData_' + currentUser);
+            if (savedData) {
+                // Merge data hiện tại (nếu user cũ bị thiếu data mới update) 
+                // hoặc lấy data cũ. Ở đây đơn giản là ưu tiên data cũ nếu đã lưu.
+                dataSets = JSON.parse(savedData);
+                
+                // Cập nhật lại số lượng món ăn/nước uống nếu base default có thay đổi mà user chưa có (tránh mất món khi tui code update)
+                // (Chỉ áp dụng với user cũ muốn reset hoặc tự động add thêm nếu cần, 
+                // nhưng tạm thời cứ giữ nguyên data cá nhân của user cho an toàn)
+            } else {
+                // Clone default data cho user mới
+                dataSets = JSON.parse(JSON.stringify(defaultDataSets));
+                saveUserData(); // Lưu ngay
+            }
+        }
+
+        function saveUserData() {
+            if(currentUser) {
+                localStorage.setItem('cThoData_' + currentUser, JSON.stringify(dataSets));
+            }
+        }
+
+        function renderAllTabs() {
+            renderList('food');
+            renderList('drink');
+            renderList('activity');
+            renderList('workshop');
+        }
+
         window.onload = () => {
-            renderCanthoList();
-            renderCustomList();
+            checkLogin();
         };
 
         // --- TAB SWITCH LOGIC ---
@@ -526,17 +916,132 @@
             document.getElementById('tab-' + tabId).classList.add('active');
         }
 
-        // --- ANIMATION HELPER ---
-        function animateSelection(nameEl, descEl, btnEl, fullList) {
-            // Chỉ lấy các món được tick (checked = true)
-            const activeList = fullList.filter(item => item.checked);
-            
+        // --- RENDER LIST HELPER ---
+        function renderList(type) {
+            if(!dataSets[type]) return;
+            const list = dataSets[type];
+            const listEl = document.getElementById(type + 'List');
+            const totalCountEl = document.getElementById(type + 'TotalCount');
+            const activeCountEl = document.getElementById(type + 'ActiveCount');
+            const emptyMsgEl = document.getElementById(type + 'EmptyMsg');
+            const spinBtnEl = document.getElementById('spinBtn' + capitalize(type));
+
+            const totalCount = list.length;
+            const activeCount = list.filter(i => i.checked).length;
+
+            totalCountEl.textContent = totalCount;
+            activeCountEl.textContent = activeCount;
+
+            if (totalCount === 0) {
+                listEl.innerHTML = '';
+                emptyMsgEl.style.display = 'block';
+                spinBtnEl.disabled = true;
+                return;
+            }
+
+            emptyMsgEl.style.display = 'none';
+            spinBtnEl.disabled = activeCount < 2;
+
+            if (activeCount < 2) {
+                document.getElementById('foodName' + capitalize(type)).textContent = "Tick thêm đi!";
+                document.getElementById('foodDesc' + capitalize(type)).textContent = "Cần ít nhất 2 mục được tick chọn để quay.";
+                document.getElementById('foodAddress' + capitalize(type)).style.display = 'none';
+                document.getElementById('mapBtn' + capitalize(type)).style.display = 'none';
+            } else {
+                if(document.getElementById('foodName' + capitalize(type)).textContent === "Tick thêm đi!") {
+                    resetResultText(type);
+                }
+            }
+
+            listEl.innerHTML = '';
+            list.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = `item-row ${item.checked ? '' : 'unchecked'}`;
+                
+                const queryStr = encodeURIComponent((item.name + " " + (item.address || "Cần Thơ")));
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${queryStr}`;
+
+                li.innerHTML = `
+                    <div class="item-content-wrapper">
+                        <input type="checkbox" class="item-checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${type}', ${index})">
+                        <div class="item-info">
+                            <strong>${item.name}</strong>
+                            <small>${item.address || item.desc || ''}</small>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <a href="${mapUrl}" target="_blank" class="map-icon-btn" title="Xem bản đồ">📍</a>
+                        <button class="del-btn" onclick="deleteItem('${type}', ${index})">×</button>
+                    </div>
+                `;
+                listEl.appendChild(li);
+            });
+        }
+
+        function resetResultText(type) {
+            const titles = {
+                food: ["Bấm nút ở dưới đi!", "Hệ thống chọn ngẫu nhiên quán ăn ĐƯỢC TICK ở dưới."],
+                drink: ["Khát nước chưa?", "Random quán nước chill chill ở Cần Thơ."],
+                activity: ["Hôm nay đi đâu chơi?", "Random địa điểm dạo chơi, giải trí tại Cần Thơ."],
+                workshop: ["Khéo tay hay làm!", "Random các lớp workshop nghệ thuật, thủ công."]
+            };
+            document.getElementById('foodName' + capitalize(type)).textContent = titles[type][0];
+            document.getElementById('foodDesc' + capitalize(type)).textContent = titles[type][1];
+            document.getElementById('foodAddress' + capitalize(type)).style.display = 'none';
+            document.getElementById('mapBtn' + capitalize(type)).style.display = 'none';
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // --- ACTIONS ---
+        function toggleAll(type, isCheck) {
+            dataSets[type].forEach(item => item.checked = isCheck);
+            saveUserData();
+            renderList(type);
+        }
+
+        function toggleItemCheck(type, index) {
+            dataSets[type][index].checked = !dataSets[type][index].checked;
+            saveUserData();
+            renderList(type);
+        }
+
+        function addItem(type) {
+            const inputEl = document.getElementById(type + 'ItemInput');
+            const val = inputEl.value.trim();
+            if (!val) return;
+            dataSets[type].unshift({ name: val, desc: "Quán mới thêm vào danh sách!", address: "Cần Thơ", checked: true });
+            saveUserData();
+            inputEl.value = '';
+            renderList(type);
+        }
+
+        function deleteItem(type, index) {
+            dataSets[type].splice(index, 1);
+            saveUserData();
+            renderList(type);
+        }
+
+        // --- SPIN ANIMATION ---
+        function spinTab(type) {
+            const list = dataSets[type];
+            const activeList = list.filter(item => item.checked);
             if (activeList.length < 2) return;
+
+            const nameEl = document.getElementById('foodName' + capitalize(type));
+            const descEl = document.getElementById('foodDesc' + capitalize(type));
+            const addressEl = document.getElementById('foodAddress' + capitalize(type));
+            const mapBtnEl = document.getElementById('mapBtn' + capitalize(type));
+            const btnEl = document.getElementById('spinBtn' + capitalize(type));
 
             btnEl.disabled = true;
             nameEl.classList.add('rolling');
             nameEl.classList.remove('tada');
             descEl.textContent = "Đang quay số mệnh...";
+            addressEl.style.display = 'none';
+            mapBtnEl.style.display = 'none';
 
             let counter = 0;
             const maxTurns = 20;
@@ -553,171 +1058,64 @@
                     nameEl.classList.remove('rolling');
                     nameEl.classList.add('tada');
                     nameEl.textContent = finalItem.name;
-                    descEl.textContent = finalItem.desc;
+                    descEl.textContent = finalItem.desc || "Quyết định vậy đi, cấm đổi ý!";
+                    
+                    if (finalItem.address) {
+                        addressEl.textContent = "📍 " + finalItem.address;
+                        addressEl.style.display = 'block';
+                        
+                        const queryStr = encodeURIComponent((finalItem.name + " " + finalItem.address));
+                        mapBtnEl.href = `https://www.google.com/maps/search/?api=1&query=${queryStr}`;
+                        mapBtnEl.style.display = 'inline-flex';
+                    }
                     
                     btnEl.disabled = false;
+                    createMiniExplosion();
                 }
             }, 100);
         }
 
-        // --- CHỌN/BỎ CHỌN TẤT CẢ ---
-        function toggleAll(type, isCheck) {
-            const list = type === 'cantho' ? canThoFoods : customItems;
-            list.forEach(item => item.checked = isCheck);
-            if (type === 'cantho') renderCanthoList();
-            else renderCustomList();
-        }
-
-        function toggleItemCheck(type, index) {
-            const list = type === 'cantho' ? canThoFoods : customItems;
-            list[index].checked = !list[index].checked;
-            if (type === 'cantho') renderCanthoList();
-            else renderCustomList();
-        }
-
-        // --- LOGIC TAB 1: CẦN THƠ ---
-        const canthoInput = document.getElementById('canthoItemInput');
-        const canthoListEl = document.getElementById('canthoList');
-        const canthoEmptyMsg = document.getElementById('canthoEmptyMsg');
-        const spinBtn1 = document.getElementById('spinBtn1');
-        
-        canthoInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') addCanthoItem();
-        });
-
-        function addCanthoItem() {
-            const val = canthoInput.value.trim();
-            if (!val) return;
-            canThoFoods.unshift({ name: val, desc: "Món mới thêm vào nè!", checked: true });
-            canthoInput.value = '';
-            renderCanthoList();
-        }
-
-        function deleteCanthoItem(index) {
-            canThoFoods.splice(index, 1);
-            renderCanthoList();
-        }
-
-        function renderCanthoList() {
-            const totalCount = canThoFoods.length;
-            const activeCount = canThoFoods.filter(i => i.checked).length;
-            
-            document.getElementById('canthoTotalCount').textContent = totalCount;
-            document.getElementById('canthoActiveCount').textContent = activeCount;
-
-            if (totalCount === 0) {
-                canthoListEl.innerHTML = '';
-                canthoEmptyMsg.style.display = 'block';
-                spinBtn1.disabled = true;
-                return;
+        // --- EFFECTS ---
+        function createHeartExplosion() {
+            const numHearts = 40;
+            const colors = ['#FF6B6B', '#ff4d4d', '#ff9999', '#ff1a1a', '#ffb3b3'];
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('floating-heart');
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 400 + 100; 
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                const rot = (Math.random() * 360) + 'deg';
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                heart.style.setProperty('--rot', rot);
+                heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                heart.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
             }
+        }
 
-            canthoEmptyMsg.style.display = 'none';
-            // Cần ít nhất 2 món đang tick để quay
-            spinBtn1.disabled = activeCount < 2;
-            if (activeCount < 2) {
-                document.getElementById('foodName1').textContent = "Tick thêm đi!";
-                document.getElementById('foodDesc1').textContent = "Cần ít nhất 2 món được tick chọn để quay.";
-            } else {
-                if(document.getElementById('foodName1').textContent === "Tick thêm đi!") {
-                    document.getElementById('foodName1').textContent = "Bấm nút ở dưới đi!";
-                    document.getElementById('foodDesc1').textContent = "Hệ thống sẽ chọn ngẫu nhiên 1 trong các món ĐƯỢC TICK ở dưới.";
-                }
+        function createMiniExplosion() {
+            const numHearts = 15;
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '✨';
+                heart.classList.add('floating-heart');
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 150 + 50; 
+                heart.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                heart.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+                heart.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+                heart.style.fontSize = '1.5rem';
+                heart.style.animationDuration = '1s';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
             }
-
-            canthoListEl.innerHTML = '';
-            
-            canThoFoods.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.className = `item-row ${item.checked ? '' : 'unchecked'}`;
-                li.innerHTML = `
-                    <div class="item-content-wrapper">
-                        <input type="checkbox" class="item-checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('cantho', ${index})">
-                        <div class="item-info">
-                            <strong>${item.name}</strong>
-                            <small>${item.desc}</small>
-                        </div>
-                    </div>
-                    <button class="del-btn" onclick="deleteCanthoItem(${index})">×</button>
-                `;
-                canthoListEl.appendChild(li);
-            });
         }
-
-        function spinDefault() {
-            animateSelection(document.getElementById('foodName1'), document.getElementById('foodDesc1'), spinBtn1, canThoFoods);
-        }
-
-        // --- LOGIC TAB 2: CUSTOM ---
-        const customInput = document.getElementById('customItemInput');
-        const customListEl = document.getElementById('customList');
-        const customEmptyMsg = document.getElementById('customEmptyMsg');
-        const spinBtn2 = document.getElementById('spinBtn2');
-        const customActions = document.getElementById('customActions');
-
-        customInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') addCustomItem();
-        });
-
-        function addCustomItem() {
-            const val = customInput.value.trim();
-            if (!val) return;
-            customItems.unshift({ name: val, desc: "Tới công chuyện luôn!", checked: true });
-            customInput.value = '';
-            renderCustomList();
-        }
-
-        function deleteCustomItem(index) {
-            customItems.splice(index, 1);
-            renderCustomList();
-        }
-
-        function renderCustomList() {
-            const totalCount = customItems.length;
-            const activeCount = customItems.filter(i => i.checked).length;
-            
-            document.getElementById('customTotalCount').textContent = totalCount;
-            document.getElementById('customActiveCount').textContent = activeCount;
-
-            if (totalCount === 0) {
-                customListEl.innerHTML = '';
-                customEmptyMsg.style.display = 'block';
-                customActions.style.display = 'none';
-                spinBtn2.disabled = true;
-                return;
-            }
-
-            customEmptyMsg.style.display = 'none';
-            customActions.style.display = 'flex';
-            spinBtn2.disabled = activeCount < 2;
-            
-            if (activeCount < 2) {
-                document.getElementById('foodName2').textContent = "Đang chờ bạn...";
-                document.getElementById('foodDesc2').textContent = "Nhập và tick chọn ít nhất 2 món rồi bấm Random nhé!";
-            }
-
-            customListEl.innerHTML = '';
-            
-            customItems.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.className = `item-row ${item.checked ? '' : 'unchecked'}`;
-                li.innerHTML = `
-                    <div class="item-content-wrapper">
-                        <input type="checkbox" class="item-checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('custom', ${index})">
-                        <div class="item-info">
-                            <strong>${item.name}</strong>
-                        </div>
-                    </div>
-                    <button class="del-btn" onclick="deleteCustomItem(${index})">×</button>
-                `;
-                customListEl.appendChild(li);
-            });
-        }
-
-        function spinCustom() {
-            animateSelection(document.getElementById('foodName2'), document.getElementById('foodDesc2'), spinBtn2, customItems);
-        }
-
     </script>
 </body>
 </html>
