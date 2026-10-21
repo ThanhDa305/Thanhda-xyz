@@ -26,32 +26,35 @@
             user-select: none;
         }
 
-        /* NÚT ĐIỀU KHIỂN NHẠC GÓC TRÊN */
+        /* NÚT BẬT NHẠC SIÊU TO GÓC TRÊN ĐỂ DỄ BẤM */
         #music-toggle-btn {
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 10005;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(230, 57, 70, 0.85);
+            border: 2px solid #fff;
             color: white;
-            padding: 8px 14px;
+            padding: 10px 18px;
             border-radius: 50px;
             font-family: 'Baloo 2', cursive;
-            font-size: 0.9em;
+            font-size: 1em;
+            font-weight: bold;
             cursor: pointer;
-            backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.6);
+            animation: pulseBtn 1.5s infinite;
         }
-        #music-toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(230, 57, 70, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
         }
         .music-icon {
-            font-size: 1.1em;
+            font-size: 1.2em;
             animation: spinNote 3s linear infinite;
             display: inline-block;
         }
@@ -422,12 +425,12 @@
 </head>
 <body onclick="tryPlayMusicOnce()">
 
-    <!-- THẺ NHẠC GẮN TRỰC TIẾP DIRECT LINK TỪ GOOGLE DRIVE CỦA ÔNG -->
+    <!-- DÙNG LINK NHẠC CHUẨN PIXABAY ĐỂ TRÁNH BỊ GOOGLE DRIVE CHẶN CORS -->
     <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/01/26/audio_d0c6ff1bfd.mp3?filename=romantic-piano-114484.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
+    <!-- NÚT BẬT/TẮT NHẠC NỔI BẬT GÓC TRÊN -->
     <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)">
         <span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
     </button>
@@ -484,12 +487,12 @@
 
         function tryPlayMusicOnce() {
             if (!isMusicPlaying) {
-                bgMusic.volume = 0.5;
+                bgMusic.volume = 0.6;
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
                     musicText.textContent = "Tắt nhạc";
-                }).catch(e => console.log("Chờ tương tác người dùng"));
+                }).catch(e => console.log("Chờ người dùng tương tác"));
             }
         }
 
@@ -501,7 +504,7 @@
                 musicBtn.classList.add('paused');
                 musicText.textContent = "Bật nhạc";
             } else {
-                bgMusic.volume = 0.5;
+                bgMusic.volume = 0.6;
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
