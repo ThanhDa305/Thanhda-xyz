@@ -26,7 +26,7 @@
             user-select: none;
         }
 
-        /* NÚT BẬT NHẠC SIÊU TO GÓC TRÊN ĐỂ DỄ BẤM */
+        /* NÚT BẬT NHẠC GÓC TRÊN */
         #music-toggle-btn {
             position: fixed;
             top: 20px;
@@ -425,12 +425,12 @@
 </head>
 <body onclick="tryPlayMusicOnce()">
 
-    <!-- DÙNG LINK NHẠC CHUẨN PIXABAY ĐỂ TRÁNH BỊ GOOGLE DRIVE CHẶN CORS -->
+    <!-- LINK NHẠC ĐÚNG FILE BÀI HÁT TRÊN GOOGLE DRIVE CỦA ÔNG -->
     <audio id="bg-music" loop>
-        <source src="https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg" type="audio/ogg">
+        <source src="https://docs.google.com/uc?export=download&id=1lqMhC0985KcCpzb1TokkB0PPcJBKRXK6" type="audio/mp4">
     </audio>
 
-    <!-- NÚT BẬT/TẮT NHẠC NỔI BẬT GÓC TRÊN -->
+    <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
     <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)">
         <span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
     </button>
