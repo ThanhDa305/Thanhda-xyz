@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bí Mật Của Nhựt Lam ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -20,7 +20,7 @@
             background: var(--bg-color);
             font-family: 'Baloo 2', cursive;
             color: white;
-            perspective: 1200px;
+            perspective: 1000px;
             touch-action: none;
             -webkit-user-select: none;
             user-select: none;
@@ -45,15 +45,15 @@
         .story-text-line {
             position: absolute;
             font-family: 'Baloo 2', cursive;
-            font-size: clamp(1.5em, 5vw, 2.5em);
+            font-size: clamp(1.3em, 4.5vw, 2.2em);
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 154, 158, 0.8);
             text-align: center;
             opacity: 0;
-            transform: scale(0.9);
+            transform: scale(0.95);
             transition: opacity 0.8s ease, transform 0.8s ease;
-            max-width: 90vw;
-            line-height: 1.4;
+            max-width: 85vw;
+            line-height: 1.5;
         }
 
         .story-text-line.active {
@@ -62,7 +62,7 @@
         }
 
         /* =========================================
-           HIỆU ỨNG ĐIỆN ẢNH & HỘP QUÀ CHỜ
+           MÀN HÌNH HỘP QUÀ CHỜ
            ========================================= */
         #intro {
             position: fixed;
@@ -95,7 +95,7 @@
 
         .cinema-bar {
             position: fixed;
-            left: 0; width: 100%; height: 10vh;
+            left: 0; width: 100%; height: 8vh;
             background: #000;
             z-index: 10000;
             transition: height 2s cubic-bezier(0.65, 0, 0.35, 1);
@@ -107,21 +107,19 @@
         .intro-text {
             text-align: center;
             z-index: 2;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .intro-text h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(2.5em, 8vw, 4em);
+            font-size: clamp(2.2em, 7vw, 3.5em);
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             margin: 0 0 5px 0;
-            opacity: 0.9;
         }
         .intro-text p {
-            font-size: clamp(1em, 4vw, 1.3em);
+            font-size: clamp(0.95em, 3.5vw, 1.2em);
             color: #ccc;
             margin: 0;
-            letter-spacing: 1px;
         }
 
         /* HỘP QUÀ 2D TỐI ƯU MOBILE */
@@ -129,15 +127,15 @@
             position: relative;
             z-index: 10;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.2s;
         }
         .gift-wrapper:active {
             transform: scale(0.95);
         }
 
         .gift-lid {
-            width: clamp(130px, 40vw, 160px);
-            height: clamp(30px, 9vw, 35px);
+            width: clamp(120px, 35vw, 150px);
+            height: clamp(28px, 8vw, 32px);
             background: var(--box-color);
             border-radius: 6px;
             position: relative;
@@ -149,20 +147,20 @@
         .gift-lid::before {
             content: ''; position: absolute; top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 25px; height: 100%; background: var(--ribbon-color);
+            width: 22px; height: 100%; background: var(--ribbon-color);
         }
 
         .bow {
-            position: absolute; width: 35px; height: 35px;
-            border: 7px solid var(--ribbon-color); border-radius: 50%;
-            top: -22px; z-index: -1;
+            position: absolute; width: 32px; height: 32px;
+            border: 6px solid var(--ribbon-color); border-radius: 50%;
+            top: -20px; z-index: -1;
         }
-        .bow-left { left: 25px; transform: rotate(-30deg); }
-        .bow-right { right: 25px; transform: rotate(30deg); }
+        .bow-left { left: 22px; transform: rotate(-30deg); }
+        .bow-right { right: 22px; transform: rotate(30deg); }
 
         .gift-base {
-            width: clamp(120px, 36vw, 145px);
-            height: clamp(100px, 30vw, 120px);
+            width: clamp(110px, 32vw, 135px);
+            height: clamp(90px, 26vw, 110px);
             background: var(--box-color);
             margin: 0 auto;
             border-radius: 0 0 8px 8px;
@@ -173,38 +171,37 @@
         .gift-base::before {
             content: ''; position: absolute; top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 25px; height: 100%; background: var(--ribbon-color);
+            width: 22px; height: 100%; background: var(--ribbon-color);
         }
         .gift-base::after {
             content: ''; position: absolute; top: 40%; left: 0;
-            width: 100%; height: 22px; background: var(--ribbon-color);
+            width: 100%; height: 20px; background: var(--ribbon-color);
         }
 
-        /* HIỆU ỨNG TIA SÁNG DẠNG THẲNG PHÁT RA TỪ HỘP QUÀ RỒI MỞ RỘNG CHẦM CHẬM */
+        /* HIỆU ỨNG TIA SÁNG MỞ ĐẦU HOÀN TOÀN MỚI */
         #flash-overlay {
             position: fixed;
             top: 50%; left: 50%;
-            width: 8px; height: 0vh; /* Bắt đầu là một tia sáng thẳng đứng mỏng */
-            background: linear-gradient(to bottom, #fff, #ffeb3b, #ff9a9e);
-            box-shadow: 0 0 40px 15px #fff;
+            width: 6px; height: 0vh;
+            background: linear-gradient(to bottom, #ffffff, #ffeb3b, #ff9a9e);
+            box-shadow: 0 0 50px 20px #fff;
             transform: translate(-50%, -50%);
             opacity: 0;
             z-index: 100;
             pointer-events: none;
-            transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s, opacity 0.5s;
+            transition: height 0.6s ease-in, width 0.6s ease-out 0.5s, opacity 0.4s;
         }
-        #flash-overlay.expand-beam {
+        #flash-overlay.beam-up {
             opacity: 1;
             height: 100vh;
-            width: 15vw; /* Dãn rộng tia sáng thành dải sáng khổng lồ */
         }
-        #flash-overlay.cover-screen {
+        #flash-overlay.expand-screen {
             width: 100vw;
-            transition: width 1s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: width 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         /* =========================================
-           VŨ TRỤ 3D & VẬT THỂ
+           VŨ TRỤ 3D & THẺ KỶ NIỆM (TỐI ƯU MOBILE)
            ========================================= */
         #stars-container {
             position: fixed;
@@ -231,28 +228,28 @@
         }
 
         .item-img {
-            width: clamp(140px, 35vw, 220px); 
-            height: clamp(180px, 45vw, 280px);
+            width: clamp(120px, 32vw, 180px); 
+            height: clamp(160px, 42vw, 240px);
             object-fit: cover;
             border-radius: 12px;
             border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(255, 154, 158, 0.3), 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.3), 0 10px 25px rgba(0,0,0,0.8);
             pointer-events: auto;
         }
 
         .item-text {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(24px, 6vw, 38px);
+            font-size: clamp(20px, 5.5vw, 32px);
             color: #fff;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
             white-space: nowrap; pointer-events: auto;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 8px 18px;
+            border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         /* HỘP QUÀ KHỔNG LỒ BAY TRONG KHÔNG GIAN */
@@ -261,20 +258,20 @@
             pointer-events: auto;
         }
         .giant-gift-icon {
-            font-size: clamp(100px, 25vw, 150px);
-            filter: drop-shadow(0 0 30px #ff0000) drop-shadow(0 0 60px #ffaa00);
+            font-size: clamp(90px, 22vw, 130px);
+            filter: drop-shadow(0 0 25px #ff0000) drop-shadow(0 0 50px #ffaa00);
             animation: heartbeat 1.5s infinite;
         }
         .giant-gift-label {
             font-family: 'Baloo 2', cursive;
-            font-size: clamp(18px, 5vw, 28px);
+            font-size: clamp(16px, 4.5vw, 24px);
             color: #ffeb3b;
             text-shadow: 0 0 15px #ff9800;
-            margin-top: 10px;
+            margin-top: 8px;
             font-weight: bold;
             background: rgba(0,0,0,0.7);
-            padding: 6px 20px;
-            border-radius: 25px;
+            padding: 5px 18px;
+            border-radius: 20px;
             border: 2px solid #ffeb3b;
             box-shadow: 0 0 15px #ffeb3b;
             white-space: nowrap;
@@ -283,13 +280,13 @@
 
         @keyframes floatLabel {
             from { transform: translateY(0); }
-            to { transform: translateY(-8px); }
+            to { transform: translateY(-6px); }
         }
         @keyframes heartbeat {
             0% { transform: scale(1); }
-            15% { transform: scale(1.15); }
+            15% { transform: scale(1.12); }
             30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
+            45% { transform: scale(1.12); }
             70% { transform: scale(1); }
         }
 
@@ -299,63 +296,62 @@
         #modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             display: none; 
             justify-content: center; 
             align-items: center; 
             z-index: 10000; opacity: 0; transition: opacity 0.3s;
             overflow: hidden;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
         
         .modal-content {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            width: 100%; max-width: 450px;
-            transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%; max-width: 400px;
+            transform: scale(0.85); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
         }
         
         .modal-content img {
             width: 100%;
-            max-width: 85vw; 
-            max-height: 45vh; 
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
+            max-width: 80vw; 
+            max-height: 40vh; 
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 154, 158, 0.4);
             border: 2px solid rgba(255,255,255,0.2);
             object-fit: contain;
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
         }
         
         .modal-content .modal-text {
             font-family: 'Dancing Script', cursive; 
-            font-size: clamp(2em, 7vw, 3em);
-            color: #fff; text-shadow: 0 0 20px rgba(255, 105, 180, 1);
+            font-size: clamp(1.8em, 6vw, 2.6em);
+            color: #fff; text-shadow: 0 0 15px rgba(255, 105, 180, 1);
             text-align: center; margin: 0; padding: 0;
         }
 
-        /* PHẦN HIỆN LẦN LƯỢT 4 CÂU KHI MỞ QUÀ */
         .special-message-box {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
             justify-content: center;
-            min-height: 140px;
+            min-height: 120px;
         }
 
         .special-msg-line {
             font-family: 'Baloo 2', cursive !important;
-            font-size: clamp(1.1em, 4.5vw, 1.5em) !important; 
+            font-size: clamp(1em, 4vw, 1.35em) !important; 
             color: #ffeb3b !important;
-            text-shadow: 0 0 15px rgba(255,0,0,0.8) !important;
+            text-shadow: 0 0 12px rgba(255,0,0,0.8) !important;
             line-height: 1.4;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
             position: absolute;
             width: 85vw;
-            max-width: 450px;
+            max-width: 400px;
         }
 
         .special-msg-line.show {
@@ -366,9 +362,9 @@
 
         .close-btn {
             position: absolute;
-            top: 20px; right: 20px;
-            padding: 8px 20px;
-            font-size: 1em; font-family: 'Baloo 2', cursive;
+            top: 15px; right: 15px;
+            padding: 6px 16px;
+            font-size: 0.9em; font-family: 'Baloo 2', cursive;
             background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white;
             border-radius: 50px; cursor: pointer;
             backdrop-filter: blur(5px);
@@ -376,8 +372,8 @@
         }
         
         .music-note {
-            position: fixed; bottom: 20px; right: 20px;
-            color: rgba(255,255,255,0.4); font-size: 0.85em; z-index: 100;
+            position: fixed; bottom: 15px; right: 15px;
+            color: rgba(255,255,255,0.4); font-size: 0.8em; z-index: 100;
             letter-spacing: 0.5px;
             opacity: 0; transition: opacity 2s;
             text-align: right;
@@ -386,7 +382,7 @@
 
         .confetti {
             position: absolute;
-            font-size: 26px;
+            font-size: 24px;
             pointer-events: none;
             z-index: 9999;
             animation: fall 3s ease-in forwards;
@@ -444,15 +440,13 @@
         <div class="modal-content" id="modalData"></div>
     </div>
     
-    <div class="music-note" id="hint-note">🎵 Vuốt màn hình để xoay không gian 3D</div>
+    <div class="music-note" id="hint-note">🎵 Vuốt nhẹ để lướt ảnh không gian 3D</div>
 
     <script>
-        // --- CHẠY CHUỖI 6 CÂU INTRO (MỖI DÒNG 3 GIÂY) ---
         const lines = document.querySelectorAll('.story-text-line');
         let currentLine = 0;
 
         function playStoryIntro() {
-            // Phát nhạc nền từ đầu (có thể cần user interaction tùy trình duyệt)
             const bgMusic = document.getElementById('bg-music');
             bgMusic.volume = 0.5;
             bgMusic.play().catch(e => console.log("Trình duyệt chặn autoplay"));
@@ -463,21 +457,20 @@
                 }
                 lines[currentLine].classList.add('active');
                 currentLine++;
-                setTimeout(playStoryIntro, 3000); // 3 giây mỗi dòng
+                setTimeout(playStoryIntro, 3000);
             } else {
-                // Hết chuỗi chữ, ẩn màn hình intro chữ và hiện hộp quà
                 setTimeout(() => {
                     document.getElementById('story-intro').style.opacity = '0';
                     setTimeout(() => {
                         document.getElementById('story-intro').style.display = 'none';
                         document.getElementById('intro').classList.add('show');
-                    }, 1000);
-                }, 1000);
+                    }, 800);
+                }, 800);
             }
         }
 
         window.onload = () => {
-            setTimeout(playStoryIntro, 500);
+            setTimeout(playStoryIntro, 400);
         };
 
         const specialGiftConfig = {
@@ -512,21 +505,18 @@
             if(isOpening) return;
             isOpening = true;
 
-            // Nắp hộp quà bật ra
-            document.getElementById('gift-lid').style.transform = 'translateY(-100px) rotate(20deg) scale(1.2)';
+            document.getElementById('gift-lid').style.transform = 'translateY(-90px) rotate(20deg) scale(1.15)';
             document.querySelector('.intro-text').style.opacity = '0';
-            document.querySelector('.intro-text').style.transition = 'opacity 0.4s';
+            document.querySelector('.intro-text').style.transition = 'opacity 0.3s';
 
-            // Bước 1: Tia sáng dạng thẳng vút lên từ hộp quà
+            // Hiệu ứng tia sáng vút lên rồi mở rộng che màn hình
             const flash = document.getElementById('flash-overlay');
-            flash.classList.add('expand-beam');
+            flash.classList.add('beam-up');
 
-            // Bước 2: Sau 0.8s mở rộng chầm chậm ra toàn màn hình
             setTimeout(() => {
-                flash.classList.add('cover-screen');
-            }, 800);
+                flash.classList.add('expand-screen');
+            }, 600);
 
-            // Bước 3: Chuyển cảnh sang không gian 3D mượt mà
             setTimeout(() => {
                 document.getElementById('intro').style.opacity = '0';
                 document.getElementById('bar-top').style.height = '0';
@@ -541,8 +531,8 @@
 
                 setTimeout(() => {
                     document.getElementById('intro').style.display = 'none';
-                }, 1500);
-            }, 1800);
+                }, 1200);
+            }, 1400);
         }
 
         const scene = document.getElementById('scene');
@@ -552,14 +542,16 @@
         let targetRotX = 0, targetRotY = 0;
         let currentRotX = 0, currentRotY = 0;
 
+        // Xử lý chuột (Desktop)
         document.addEventListener('mousemove', (e) => {
             if(isPaused) return;
             const x = (e.clientX / window.innerWidth) - 0.5;
             const y = (e.clientY / window.innerHeight) - 0.5;
-            targetRotY = x * 35; 
-            targetRotX = -y * 35; 
+            targetRotY = x * 25; 
+            targetRotX = -y * 25; 
         });
 
+        // Xử lý cảm ứng lướt mượt mà trên Mobile
         let touchStartX = 0, touchStartY = 0;
         document.addEventListener('touchstart', (e) => {
             if(e.touches.length > 0) {
@@ -576,8 +568,8 @@
             const deltaX = (touchX - touchStartX) / window.innerWidth;
             const deltaY = (touchY - touchStartY) / window.innerHeight;
             
-            targetRotY += deltaX * 40;
-            targetRotX -= deltaY * 40;
+            targetRotY += deltaX * 60;
+            targetRotX -= deltaY * 60;
             
             touchStartX = touchX;
             touchStartY = touchY;
@@ -598,15 +590,15 @@
                 const obj = {
                     el: el,
                     data: item,
-                    x: (Math.random() - 0.5) * 3500, 
-                    y: (Math.random() - 0.5) * 2200, 
-                    z: Math.random() * -5000 - 1000, 
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    vz: Math.random() * 1.2 + 0.6, 
-                    rotZ: (Math.random() - 0.5) * 15,
+                    x: (Math.random() - 0.5) * 2800, 
+                    y: (Math.random() - 0.5) * 1800, 
+                    z: Math.random() * -4500 - 800, 
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    vz: Math.random() * 1.0 + 0.5, 
+                    rotZ: (Math.random() - 0.5) * 12,
                     bobAngle: Math.random() * Math.PI * 2,
-                    bobSpeed: Math.random() * 0.01 + 0.005
+                    bobSpeed: Math.random() * 0.01 + 0.004
                 };
 
                 el.addEventListener('click', () => openModal(obj));
@@ -616,7 +608,7 @@
 
             setTimeout(() => {
                 createGiantGift();
-            }, 8000); 
+            }, 7000); 
 
             animate();
         }
@@ -634,10 +626,10 @@
                 isSpecial: true,
                 x: 0, 
                 y: 0, 
-                z: -3500, 
+                z: -3000, 
                 vx: 0,
                 vy: 0,
-                vz: 2.0, 
+                vz: 1.8, 
                 rotZ: 0,
                 bobAngle: 0,
                 bobSpeed: 0.02
@@ -650,9 +642,9 @@
 
         function animate() {
             if (!isPaused) {
-                currentRotX += (targetRotX - currentRotX) * 0.04;
-                currentRotY += (targetRotY - currentRotY) * 0.04;
-                scene.style.transform = `translateZ(600px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+                currentRotX += (targetRotX - currentRotX) * 0.05;
+                currentRotY += (targetRotY - currentRotY) * 0.05;
+                scene.style.transform = `translateZ(500px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
 
                 elements.forEach(obj => {
                     obj.x += obj.vx;
@@ -660,14 +652,14 @@
                     obj.z += obj.vz; 
                     
                     obj.bobAngle += obj.bobSpeed;
-                    const bobY = Math.sin(obj.bobAngle) * 12;
+                    const bobY = Math.sin(obj.bobAngle) * 10;
 
-                    let maxZ = obj.isSpecial ? 1000 : 700;
+                    let maxZ = obj.isSpecial ? 900 : 600;
                     
                     if (obj.z > maxZ) {
-                        obj.z = -5000;
-                        obj.x = (Math.random() - 0.5) * 3500;
-                        obj.y = (Math.random() - 0.5) * 2200;
+                        obj.z = -4500;
+                        obj.x = (Math.random() - 0.5) * 2800;
+                        obj.y = (Math.random() - 0.5) * 1800;
                     }
 
                     obj.el.style.transform = `translate3d(${obj.x}px, ${obj.y + bobY}px, ${obj.z}px) rotateZ(${obj.rotZ}deg)`;
@@ -678,12 +670,12 @@
 
         function createStars() {
             const container = document.getElementById('stars-container');
-            for(let i=0; i<150; i++) {
+            for(let i=0; i<120; i++) {
                 let star = document.createElement('div');
                 star.style.position = 'absolute';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                let size = Math.random() * 2;
+                let size = Math.random() * 1.8;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
                 star.style.background = 'white';
@@ -711,7 +703,6 @@
             }, 10);
         }
 
-        // HÀM MỞ QUÀ ĐẶC BIỆT KÈM CHUỖI 4 CÂU LẦN LƯỢT XUẤT HIỆN
         let messageTimeouts = [];
 
         function openSpecialGift() {
@@ -719,7 +710,7 @@
             const modal = document.getElementById('modal');
             const modalData = document.getElementById('modalData');
 
-            let msgHTML = `<img src="${specialGiftConfig.imgSrc}" style="border: 3px solid #ffeb3b; box-shadow: 0 0 30px #ffeb3b;">`;
+            let msgHTML = `<img src="${specialGiftConfig.imgSrc}" style="border: 3px solid #ffeb3b; box-shadow: 0 0 25px #ffeb3b;">`;
             msgHTML += `<div class="special-message-box">`;
             specialGiftConfig.messages.forEach((msg, idx) => {
                 msgHTML += `<div class="special-msg-line" id="msg-line-${idx}">${msg}</div>`;
@@ -734,12 +725,11 @@
                 modal.querySelector('.modal-content').style.transform = 'scale(1)';
             }, 10);
 
-            // Cho các dòng chữ hiện lần lượt mỗi 1.2 giây
             specialGiftConfig.messages.forEach((_, idx) => {
                 let t = setTimeout(() => {
                     const lineEl = document.getElementById(`msg-line-${idx}`);
                     if(lineEl) lineEl.classList.add('show');
-                }, 800 + (idx * 1400));
+                }, 700 + (idx * 1200));
                 messageTimeouts.push(t);
             });
 
@@ -749,9 +739,8 @@
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.style.opacity = '0';
-            modal.querySelector('.modal-content').style.transform = 'scale(0.8)';
+            modal.querySelector('.modal-content').style.transform = 'scale(0.85)';
             
-            // Xóa các timeout hiển thị chữ dở dang
             messageTimeouts.forEach(t => clearTimeout(t));
             messageTimeouts = [];
 
@@ -764,17 +753,17 @@
         function fireConfetti() {
             const modal = document.getElementById('modal');
             const emojis = ['🎉', '💖', '🎁', '✨', '🎂'];
-            for(let i = 0; i < 35; i++) {
+            for(let i = 0; i < 30; i++) {
                 let conf = document.createElement('div');
                 conf.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                 conf.className = 'confetti';
                 conf.style.left = Math.random() * 100 + 'vw';
                 conf.style.top = -30 + 'px';
-                conf.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                conf.style.animationDelay = (Math.random() * 0.8) + 's';
+                conf.style.animationDuration = (Math.random() * 2 + 1.2) + 's';
+                conf.style.animationDelay = (Math.random() * 0.6) + 's';
                 modal.appendChild(conf);
                 
-                setTimeout(() => conf.remove(), 4000);
+                setTimeout(() => conf.remove(), 3500);
             }
         }
     </script>
