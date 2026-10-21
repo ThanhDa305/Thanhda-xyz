@@ -26,35 +26,38 @@
             user-select: none;
         }
 
-        /* NÚT BẬT NHẠC GÓC TRÊN */
+        /* NÚT BẬT/TẮT NHẠC DẠNG ICON TRÒN GỌN GÀNG */
         #music-toggle-btn {
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 10005;
+            width: 45px;
+            height: 45px;
             background: rgba(230, 57, 70, 0.85);
-            border: 2px solid #fff;
+            border: 2px solid rgba(255, 255, 255, 0.8);
             color: white;
-            padding: 10px 18px;
-            border-radius: 50px;
-            font-family: 'Baloo 2', cursive;
-            font-size: 1em;
-            font-weight: bold;
+            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(230, 57, 70, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             animation: pulseBtn 1.5s infinite;
+        }
+        #music-toggle-btn:active {
+            transform: scale(0.9);
         }
         @keyframes pulseBtn {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(230, 57, 70, 0); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(230, 57, 70, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
         }
         .music-icon {
-            font-size: 1.2em;
+            font-size: 1.3em;
             animation: spinNote 3s linear infinite;
             display: inline-block;
         }
@@ -425,9 +428,9 @@
 </head>
 <body onclick="tryPlayMusicOnce()">
 
-    <!-- NÚT BẬT/TẮT NHẠC GÓC TRÊN -->
-    <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)">
-        <span class="music-icon">🎵</span> <span id="music-text">Bật nhạc</span>
+    <!-- NÚT ICON TRÒN GỌN GÀNG GÓC TRÊN -->
+    <button id="music-toggle-btn" class="paused" onclick="toggleMusic(event)" title="Bật/Tắt nhạc">
+        <span class="music-icon" id="music-icon-symbol">🎵</span>
     </button>
 
     <!-- CHUỖI DÒNG CHỮ INTRO -->
@@ -476,14 +479,13 @@
 
     <script>
         const musicBtn = document.getElementById('music-toggle-btn');
-        const musicText = document.getElementById('music-text');
+        const musicIconSymbol = document.getElementById('music-icon-symbol');
         
         let bgMusic = null;
         let isMusicPlaying = false;
 
         function initAudio() {
             if (!bgMusic) {
-                // Trỏ thẳng đến file happy.m4a nằm cùng thư mục trên GitHub repo của ông
                 bgMusic = new Audio("happy.m4a");
                 bgMusic.loop = true;
                 bgMusic.volume = 0.7;
@@ -496,7 +498,7 @@
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
-                    musicText.textContent = "Tắt nhạc";
+                    musicIconSymbol.textContent = "🎵";
                 }).catch(e => console.log("Chờ tương tác từ người dùng"));
             }
         }
@@ -508,12 +510,12 @@
                 bgMusic.pause();
                 isMusicPlaying = false;
                 musicBtn.classList.add('paused');
-                musicText.textContent = "Bật nhạc";
+                musicIconSymbol.textContent = "🔇";
             } else {
                 bgMusic.play().then(() => {
                     isMusicPlaying = true;
                     musicBtn.classList.remove('paused');
-                    musicText.textContent = "Tắt nhạc";
+                    musicIconSymbol.textContent = "🎵";
                 }).catch(e => console.log("Lỗi phát nhạc: ", e));
             }
         }
